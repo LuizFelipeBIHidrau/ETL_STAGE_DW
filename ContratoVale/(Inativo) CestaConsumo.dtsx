@@ -1,0 +1,1662 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/23/2022 11:46:36 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="GHTSQL2016NEW01"
+  DTS:CreatorName="GHTSQL2016NEW01\SSIS_USER"
+  DTS:DTSID="{476DCCF2-F079-4AAA-B150-A45131AC8A23}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="Inativo  CestaConsumo"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{360EE5A7-47CC-48F2-9C6B-CE7EE1790E90}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CARAJAS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{37597F88-21F3-4B71-A6F5-CF0D15AA3602}"
+      DTS:ObjectName="CARAJAS">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.11\sql2016;Initial Catalog=CARAJAS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga Cesta de Consumo"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{7B9AE788-7DAE-4DCA-B17F-89618C6739AA}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga Cesta de Consumo">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Carga Cesta de Consumo\CestaVale"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{92588585-5AC3-4F08-82FC-218E957A9D98}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="CestaVale"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation;  Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="CestaVale"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT DataMov
+      ,Periodo
+      ,Descricao
+      ,Qtde
+      ,Planta
+      ,PartNumber
+      ,CodVale
+      ,OEMspot
+  FROM Stage.CestaConsumo</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Connections[OleDbConnection]"
+                      connectionManagerID="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Stage]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].Columns[DESCRICAO]"
+                          cachedDataType="wstr"
+                          cachedLength="150"
+                          cachedName="DESCRICAO"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Descricao]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[DESCRICAO]" />
+                        <inputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].Columns[Qtde]"
+                          cachedDataType="r8"
+                          cachedName="Qtde"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Qtde]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[Qtde]" />
+                        <inputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].Columns[PLANTA]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="PLANTA"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Planta]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANTA]" />
+                        <inputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].Columns[Periodo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="Periodo"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[Periodo]" />
+                        <inputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].Columns[MES_ANO]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="MES_ANO"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DataMov]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[MES_ANO]" />
+                        <inputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].Columns[PART_NUMBER]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="PART_NUMBER"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PartNumber]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[PART_NUMBER]" />
+                        <inputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].Columns[OEM_SPOT]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="OEM_SPOT"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[OEMspot]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[OEM_SPOT]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DataMov]"
+                          dataType="dbTimeStamp"
+                          name="DataMov" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Descricao]"
+                          dataType="wstr"
+                          length="150"
+                          name="Descricao" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Qtde]"
+                          dataType="r8"
+                          name="Qtde" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Planta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Planta" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PartNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PartNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodVale]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="CodVale" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[OEMspot]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="OEMspot" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation;  Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="CESTA_VALE"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+      MES_ANO
+      ,Convert(char(6),MES_ANO,112) As Periodo
+      ,DESCRICAO
+      ,Sum(QTDE) As Qtde
+      ,PLANTA
+      ,PART_NUMBER
+     -- ,CODIGO_VALE
+      ,OEM_SPOT
+  FROM dbo.CESTA_VALE
+  Where MES_ANO &gt;= '2020-01-01 00:00:00.000'
+  Group by MES_ANO, DESCRICAO, Planta, Part_Number, Oem_Spot</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[CARAJAS]"
+                      connectionManagerRefId="Package.ConnectionManagers[CARAJAS]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[MES_ANO]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[MES_ANO]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[MES_ANO]"
+                          name="MES_ANO"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[DESCRICAO]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DESCRICAO]"
+                          length="150"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[DESCRICAO]"
+                          name="DESCRICAO"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANTA]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PLANTA]"
+                          length="50"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANTA]"
+                          name="PLANTA"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[PART_NUMBER]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PART_NUMBER]"
+                          length="50"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[PART_NUMBER]"
+                          name="PART_NUMBER"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[OEM_SPOT]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[OEM_SPOT]"
+                          length="50"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[OEM_SPOT]"
+                          name="OEM_SPOT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          length="6"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[Qtde]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[Qtde]"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].Columns[Qtde]"
+                          name="Qtde"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[MES_ANO]"
+                          dataType="dbTimeStamp"
+                          name="MES_ANO" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DESCRICAO]"
+                          dataType="wstr"
+                          length="150"
+                          name="DESCRICAO" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PLANTA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PLANTA" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PART_NUMBER]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PART_NUMBER" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[OEM_SPOT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="OEM_SPOT" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[Qtde]"
+                          dataType="r8"
+                          name="Qtde" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[MES_ANO]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[MES_ANO]"
+                          name="MES_ANO" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[Qtde]"
+                          dataType="r8"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[Qtde]"
+                          name="Qtde" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DESCRICAO]"
+                          dataType="wstr"
+                          length="150"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DESCRICAO]"
+                          name="DESCRICAO" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PLANTA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PLANTA]"
+                          name="PLANTA" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PART_NUMBER]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PART_NUMBER]"
+                          name="PART_NUMBER" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[OEM_SPOT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[OEM_SPOT]"
+                          name="OEM_SPOT" />
+                        <outputColumn
+                          refId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Carga Cesta de Consumo\CestaVale.Paths[Saída de Origem OLE DB]"
+                  endId="Package\Carga Cesta de Consumo\CestaVale\CestaVale.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Carga Cesta de Consumo\Truncate CestaVale"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{28C64AC0-31A3-4388-A6C6-DACAD43CFD8F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate CestaVale"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}"
+              SQLTask:SqlStatementSource="Truncate Table Stage.CestaConsumo" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Carga Cesta de Consumo.PrecedenceConstraints[Restrição]"
+          DTS:CreationName=""
+          DTS:DTSID="{95F5A54D-6089-4022-834C-81EDC3384A9E}"
+          DTS:From="Package\Carga Cesta de Consumo\Truncate CestaVale"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição"
+          DTS:To="Package\Carga Cesta de Consumo\CestaVale" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga CestaConsumo Stage DW"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{11EF648F-9B7A-468A-9984-F95F61C31F6F}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga CestaConsumo Stage DW">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{3C1D629E-8B1A-4AA0-9CC7-640BF4FA93F0}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Carga Dw CestaConsumo"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation;  Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="DimCestaConsumo"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT IDSKCesta
+      ,TipoLanc
+      ,PartNumber
+      ,Descricao
+      ,NomeCliente
+      ,UF
+      ,Gerencia
+      ,Regional
+      ,Linha
+      ,DataMov
+      ,Periodo
+      ,Qtde
+      ,CodVale
+      ,Planta
+      ,NumContrato
+      ,DescricaoAtual
+      ,OEMspot
+  FROM Dm.DimCestaConsumo</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Connections[OleDbConnection]"
+                      connectionManagerID="{1C8F668C-88D5-4AFB-983C-81E2775EF957}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Dw]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Gerencia]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="Gerencia"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Gerencia]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Gerencia]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Regional]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="Regional"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Regional]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Regional]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Descricao]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="Descricao"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Descricao]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Descricao]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Linha]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="15"
+                          cachedName="Linha"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Linha]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Linha]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[NumContrato]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="NumContrato"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[NumContrato]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[NumContrato]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[UF]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="UF"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[UF]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[UF]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Qtde]"
+                          cachedDataType="r8"
+                          cachedName="Qtde"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Qtde]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Qtde]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Planta]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Planta"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Planta]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Planta]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[TpLanc]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="16"
+                          cachedName="TpLanc"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[TipoLanc]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[TpLanc]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Produto]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="16"
+                          cachedName="Produto"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[PartNumber]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Produto]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Cliente]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="Cliente"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeCliente]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Cliente]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[Data]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="Data"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[DataMov]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Data]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="PeriodoMov"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[DescricaoCapa]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="DescricaoCapa"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[DescricaoAtual]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[DescricaoCapa]" />
+                        <inputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].Columns[OEMspot]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="OEMspot"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[OEMspot]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[OEMspot]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSKCesta]"
+                          dataType="i4"
+                          name="IDSKCesta" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[TipoLanc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="TipoLanc" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[PartNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="PartNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Descricao]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="Descricao" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeCliente]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="NomeCliente" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[UF]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="UF" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Gerencia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="Gerencia" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Regional]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="Regional" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Linha]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="Linha" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[DataMov]"
+                          dataType="dbTimeStamp"
+                          name="DataMov" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Qtde]"
+                          dataType="r8"
+                          name="Qtde" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodVale]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="CodVale" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[Planta]"
+                          dataType="i4"
+                          name="Planta" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[NumContrato]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="NumContrato" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[DescricaoAtual]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="DescricaoAtual" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB].ExternalColumns[OEMspot]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="OEMspot" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation;  Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="Stage CestaConsumo"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select 
+	   (Select 'Faturado') As Tipo
+      ,(Select 'Cesta de Consumo') As TpLanc
+	  ,C.CliApelido As Cliente
+	  ,cast(G.GerNome As Varchar(20)) As Gerencia
+	  ,Cast(R.RegNome As Varchar(30)) As Regional
+	  ,F.DataMov As Data
+	  ,F.Periodo As PeriodoMov
+	  ,Cast(F.PartNumber As varchar(16)) As Produto
+	  ,Cast(F.Descricao As varchar(200)) As Descricao
+	  ,L.DescLin As Linha
+	  ,T.NumContrato
+	  ,T.DescricaoCapa
+	  ,C.CliEstado As UF
+	  ,F.Qtde As Qtde
+	  ,F.Planta
+                     ,OEMspot
+
+from Stage.CestaConsumo As F (NOLOCK) 
+Left join Stage.CadPlanta As P (NOLOCK) ON (F.Planta = P.CodPlanta)
+Left Join Stage.CadCliente As C (NOLOCK) ON (P.CodCliente =C.CliCod)
+Left Join Stage.CadGerencia As G (NOLOCK) ON (C.CliGerencia = G.CodGer)
+Left Join Stage.CadRegionais As R (NOLOCK) ON (C.CliRegional = R.CodReg)
+Left Join Stage.CadContrato As T (NOLOCK) ON  (F.PartNumber = T.PartyNumber And F.Periodo &gt;= T.Periodo)
+Left join Stage.CadLinha As L (NOLOCK) ON (T.Linha = L.CodLin)</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Connections[OleDbConnection]"
+                      connectionManagerID="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Stage]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Tipo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Tipo]"
+                          length="8"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Tipo]"
+                          name="Tipo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[TpLanc]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[TpLanc]"
+                          length="16"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[TpLanc]"
+                          name="TpLanc"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Cliente]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Cliente]"
+                          length="20"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Cliente]"
+                          name="Cliente"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Gerencia]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Gerencia]"
+                          length="20"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Gerencia]"
+                          name="Gerencia"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Regional]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Regional]"
+                          length="30"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Regional]"
+                          name="Regional"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Data]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Data]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Data]"
+                          name="Data"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          length="6"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Produto]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Produto]"
+                          length="16"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Produto]"
+                          name="Produto"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Descricao]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Descricao]"
+                          length="200"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Descricao]"
+                          name="Descricao"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Linha]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Linha]"
+                          length="15"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Linha]"
+                          name="Linha"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[NumContrato]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[NumContrato]"
+                          length="50"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[NumContrato]"
+                          name="NumContrato"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[DescricaoCapa]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[DescricaoCapa]"
+                          length="100"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[DescricaoCapa]"
+                          name="DescricaoCapa"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[UF]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[UF]"
+                          length="2"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[UF]"
+                          name="UF"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Qtde]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Qtde]"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Qtde]"
+                          name="Qtde"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Planta]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Planta]"
+                          length="50"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[Planta]"
+                          name="Planta"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[OEMspot]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[OEMspot]"
+                          length="50"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].Columns[OEMspot]"
+                          name="OEMspot"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Tipo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Tipo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[TpLanc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="TpLanc" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Cliente]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="Cliente" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Gerencia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="Gerencia" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Regional]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="Regional" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Data]"
+                          dataType="dbTimeStamp"
+                          name="Data" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Produto]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="Produto" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Descricao]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="Descricao" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Linha]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="Linha" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[NumContrato]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="NumContrato" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[DescricaoCapa]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="DescricaoCapa" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[UF]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="UF" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Qtde]"
+                          dataType="r8"
+                          name="Qtde" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[Planta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Planta" />
+                        <externalMetadataColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB].ExternalColumns[OEMspot]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="OEMspot" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Tipo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Tipo]"
+                          name="Tipo" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[TpLanc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[TpLanc]"
+                          name="TpLanc" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Cliente]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Cliente]"
+                          name="Cliente" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Gerencia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Gerencia]"
+                          name="Gerencia" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Regional]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Regional]"
+                          name="Regional" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Data]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Data]"
+                          name="Data" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Produto]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Produto]"
+                          name="Produto" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Descricao]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Descricao]"
+                          name="Descricao" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Linha]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Linha]"
+                          name="Linha" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[NumContrato]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[NumContrato]"
+                          name="NumContrato" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[DescricaoCapa]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[DescricaoCapa]"
+                          name="DescricaoCapa" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[UF]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[UF]"
+                          name="UF" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Qtde]"
+                          dataType="r8"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Qtde]"
+                          name="Qtde" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Planta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[Planta]"
+                          name="Planta" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[OEMspot]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[OEMspot]"
+                          name="OEMspot" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo.Paths[Saída de Origem OLE DB]"
+                  endId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Carga CestaConsumo Stage DW\Truncate DwCestaConsumo"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{03BC9727-5155-4346-BDAA-309F0032F297}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate DwCestaConsumo"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{1C8F668C-88D5-4AFB-983C-81E2775EF957}"
+              SQLTask:SqlStatementSource="truncate table Dm.DimCestaConsumo" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Carga CestaConsumo Stage DW.PrecedenceConstraints[Restrição]"
+          DTS:CreationName=""
+          DTS:DTSID="{B772157A-98B9-42BD-B76E-20B3CAE0DDC3}"
+          DTS:From="Package\Carga CestaConsumo Stage DW\Truncate DwCestaConsumo"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição"
+          DTS:To="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição]"
+      DTS:CreationName=""
+      DTS:DTSID="{17CC6FBD-8FDB-43E1-8077-8ADF3CC249DA}"
+      DTS:From="Package\Carga Cesta de Consumo"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição"
+      DTS:To="Package\Carga CestaConsumo Stage DW" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Carga Cesta de Consumo\CestaVale"
+          TopLeft="483,27" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Carga Cesta de Consumo\Truncate CestaVale"
+          TopLeft="15,30" />
+        <EdgeLayout
+          Id="Package\Carga Cesta de Consumo.PrecedenceConstraints[Restrição]"
+          TopLeft="185,49.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="298,0"
+              Start="0,0"
+              End="290.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="290.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="630,95"
+          Size="630,138"
+          Id="Package\Carga Cesta de Consumo"
+          TopLeft="11,13" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo"
+          TopLeft="320,40" />
+        <NodeLayout
+          Size="209,42"
+          Id="Package\Carga CestaConsumo Stage DW\Truncate DwCestaConsumo"
+          TopLeft="40,41" />
+        <EdgeLayout
+          Id="Package\Carga CestaConsumo Stage DW.PrecedenceConstraints[Restrição]"
+          TopLeft="249,61.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71,0"
+              Start="0,0"
+              End="63.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="63.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="546,138"
+          Size="546,181"
+          Id="Package\Carga CestaConsumo Stage DW"
+          TopLeft="49,205" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição]"
+          TopLeft="324,151">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga Cesta de Consumo\CestaVale">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Carga Cesta de Consumo\CestaVale\CestaVale"
+          TopLeft="447,75" />
+        <NodeLayout
+          Size="140,42"
+          Id="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE"
+          TopLeft="75,75" />
+        <EdgeLayout
+          Id="Package\Carga Cesta de Consumo\CestaVale.Paths[Saída de Origem OLE DB]"
+          TopLeft="215,96">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="232,0"
+              Start="0,0"
+              End="224.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="224.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Cesta de Consumo\CestaVale\CestaVale">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Cesta de Consumo\CestaVale\CESTA_VALE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo"
+          TopLeft="56,54" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo"
+          TopLeft="425,58" />
+        <EdgeLayout
+          Id="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo.Paths[Saída de Origem OLE DB]"
+          TopLeft="235,77">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="190,0"
+              Start="0,0"
+              End="182.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="182.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\DimCestaConsumo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga CestaConsumo Stage DW\Carga Dw CestaConsumo\Stage CestaConsumo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="10.10.1.11_sql2016.MOVIMENTO.sa"
+  DTS:DTSID="{026C6138-E7E2-44FA-8076-15F606A9BFA0}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=10.10.1.11\sql2016;User ID=sa;Initial Catalog=MOVIMENTO;Provider=SQLNCLI11.1;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGD71KsiZIEWEa1YBrXw4twAAAAACAAAAAAADZgAAwAAAABAAAABJCQUiXFLapgZS2b799lwmAAAAAASAAACgAAAAEAAAAMnccSYwixZidutjaIgGuG14AAAA0qEc7kX/zbLOymQqSJ3awpq72kQMbiZ6p+QsaFCZLiUXX9OrcxCYnKsm3ItYxW4lqo2RWsrcTyRGAtubqgtgTvRdM/lcAbe9VHZjPDKNuhb7kpZNyau3ucyxUBYG8omQmFTWvSRhOKuSruIAF3m8RR9x/6/fzKRkFAAAADZEscRZ6LK62o+6fAAUSuspcE8G</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

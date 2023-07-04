@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="10.10.1.27.redmine_production.tecnologia"
+  DTS:DTSID="{36EA768F-B8C0-4C8C-A8A8-A4302025F8BF}"
+  DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=8.0.29.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="server=10.10.1.27;user id=tecnologia;database=redmine_production;port=3306;password2=Tecght1829;password3=Tecght1829;">
+      <DTS:Password
+        DTS:Name="password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxRoJLUvB906uHJA8pIiuZQAAAAACAAAAAAADZgAAwAAAABAAAABmCjY3yOYYqqcbVRrvM0tEAAAAAASAAACgAAAAEAAAAOdC3CDnSnEL3ZG3o5bxzgF4AAAAE4YP/lnyIN8TlLOXe77H47nROAE66f8qs/SSWZI8KhOsVTdMSC/cniq+1Ka3p+r/8gELeHlZ3qv7+xY1uxIqMfkj+dSsTGTQ6L84mvgj5Sau8jhn+dNE7wD3PyK/8qtgbDxNIbhr3fSd3hGqUpFydpt0AXDGQlp5FAAAAM5CwUi6dc4DaGdUguV4VjDUZnu5</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

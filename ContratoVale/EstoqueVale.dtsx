@@ -1,0 +1,699 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/16/2022 5:45:23 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="GHTSQL2016NEW01"
+  DTS:CreatorName="GHTSQL2016NEW01\SSIS_USER"
+  DTS:DTSID="{F84E8C45-ADB9-4462-8558-5C4052C390F0}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="EstoqueVale"
+  DTS:PackageType="5"
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{73851328-EE3B-494A-BDC4-9201EAC134C5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga Estoque Vale"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{F3FA7C77-15E3-41CE-A746-2066D5E20839}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga Estoque Vale">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{AE77634A-F33F-4A90-8C31-8754B352D949}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Carga EstoqueFilialVale"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation;  Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="Query EstoqueVale"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select 
+	Convert(Varchar(16),P.ProdNumPeca,0) As PartNumber,
+	Convert(Varchar(16),P.NomeFornecedor, 0) As Fornecedor,
+	T.DataPeriodo AS Periodo,
+	Sum(F.QtdeVendVale) As QtdeVendida,
+	Sum(F.QuantEstoque) As QtdeEstoque,	
+	Sum(F.FaturamentoVale) As Faturamento,
+	Sum(F.CustoVenda) As CustoVenda,
+	Sum(F.CustoEstoque) As CustoEstoque,
+	F.UfEstoque As EstadoPonta 
+from GHT_DATAWAREHOUSE.DW.FatoEstoque As F
+INNER Join Ght_DataWarehouse.Dw.DimCadProduto As P (Nolock) ON (F.IDSKProduto = P.IDSKProduto )
+INNER Join Ght_DataWarehouse.Dw.DimTempoMes As T (NoLock) ON (F.IDSKTempo = T.IDSKTTempMes)
+Left Join GHT_DATAWAREHOUSE.DW.DimMargemGerencial As M (Nolock) ON (F.IDSKMargem = M.IdskMargem)
+Left Join (Select Distinct PartyNumber, Periodo, EstadoPonta from GHT_STAGE.ST.CadContrato Where TipoContrato = 'Contrato Vale') As V ON(P.ProdNumPeca = V.PartyNumber 
+And F.UfEstoque = V.EstadoPonta And T.DataPeriodo &gt;= V.Periodo)
+Group By P.ProdNumPeca, P.NomeFornecedor, T.DataPeriodo, F.UfEstoque</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Connections[OleDbConnection]"
+                      connectionManagerID="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Stage]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[PartNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[PartNumber]"
+                          length="16"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[PartNumber]"
+                          name="PartNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Fornecedor]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Fornecedor]"
+                          length="16"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Fornecedor]"
+                          name="Fornecedor"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          length="6"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[QtdeEstoque]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdeEstoque]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[QtdeEstoque]"
+                          name="QtdeEstoque"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Faturamento]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Faturamento]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Faturamento]"
+                          name="Faturamento"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[CustoVenda]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[CustoVenda]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[CustoVenda]"
+                          name="CustoVenda"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[CustoEstoque]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[CustoEstoque]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[CustoEstoque]"
+                          name="CustoEstoque"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[EstadoPonta]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[EstadoPonta]"
+                          length="2"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[EstadoPonta]"
+                          name="EstadoPonta"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[QtdeVendida]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdeVendida]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[QtdeVendida]"
+                          name="QtdeVendida"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[PartNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="PartNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Fornecedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="Fornecedor" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdeEstoque]"
+                          dataType="r8"
+                          name="QtdeEstoque" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Faturamento]"
+                          dataType="r8"
+                          name="Faturamento" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[CustoVenda]"
+                          dataType="r8"
+                          name="CustoVenda" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[CustoEstoque]"
+                          dataType="r8"
+                          name="CustoEstoque" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[EstadoPonta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="EstadoPonta" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdeVendida]"
+                          dataType="r8"
+                          name="QtdeVendida" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[PartNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[PartNumber]"
+                          name="PartNumber" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Fornecedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Fornecedor]"
+                          name="Fornecedor" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdeEstoque]"
+                          dataType="r8"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdeEstoque]"
+                          name="QtdeEstoque" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Faturamento]"
+                          dataType="r8"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Faturamento]"
+                          name="Faturamento" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[CustoVenda]"
+                          dataType="r8"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[CustoVenda]"
+                          name="CustoVenda" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[CustoEstoque]"
+                          dataType="r8"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[CustoEstoque]"
+                          name="CustoEstoque" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[EstadoPonta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[EstadoPonta]"
+                          name="EstadoPonta" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdeVendida]"
+                          dataType="r8"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdeVendida]"
+                          name="QtdeVendida" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation;  Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="Stage EstoqueFilialvale"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT PartNumber
+      ,NomeFornecedor
+      ,Periodo
+      ,QtdeEst
+      ,QtdeVendida
+      ,Faturamento
+      ,CustoVenda
+      ,CustoEstoque
+      ,EstadoPonta
+  FROM St.EstoqueFilialVale</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Connections[OleDbConnection]"
+                      connectionManagerID="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Stage]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[PartNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="16"
+                          cachedName="PartNumber"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PartNumber]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[PartNumber]" />
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[Periodo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="Periodo"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Periodo]" />
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[Faturamento]"
+                          cachedDataType="r8"
+                          cachedName="Faturamento"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Faturamento]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Faturamento]" />
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[CustoVenda]"
+                          cachedDataType="r8"
+                          cachedName="CustoVenda"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[CustoVenda]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[CustoVenda]" />
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[CustoEstoque]"
+                          cachedDataType="r8"
+                          cachedName="CustoEstoque"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[CustoEstoque]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[CustoEstoque]" />
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[EstadoPonta]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="EstadoPonta"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[EstadoPonta]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[EstadoPonta]" />
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[Fornecedor]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="16"
+                          cachedName="Fornecedor"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeFornecedor]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[Fornecedor]" />
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[QtdeEstoque]"
+                          cachedDataType="r8"
+                          cachedName="QtdeEstoque"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdeEst]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[QtdeEstoque]" />
+                        <inputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].Columns[QtdeVendida]"
+                          cachedDataType="r8"
+                          cachedName="QtdeVendida"
+                          externalMetadataColumnId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdeVendida]"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB].Columns[QtdeVendida]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PartNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="PartNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeFornecedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="NomeFornecedor" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdeEst]"
+                          dataType="r8"
+                          name="QtdeEst" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Faturamento]"
+                          dataType="r8"
+                          name="Faturamento" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[CustoVenda]"
+                          dataType="r8"
+                          name="CustoVenda" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[CustoEstoque]"
+                          dataType="r8"
+                          name="CustoEstoque" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[EstadoPonta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="EstadoPonta" />
+                        <externalMetadataColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdeVendida]"
+                          dataType="r8"
+                          name="QtdeVendida" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Carga Estoque Vale\Carga EstoqueFilialVale.Paths[Saída de Origem OLE DB]"
+                  endId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Carga Estoque Vale\Truncate EstoqueFilial Vale"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{67A07DD1-8B7D-4062-9842-724D5EBCDF2E}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate EstoqueFilial Vale"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}"
+              SQLTask:SqlStatementSource="Truncate Table St.EstoqueFilialVale" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Carga Estoque Vale.PrecedenceConstraints[Restrição]"
+          DTS:CreationName=""
+          DTS:DTSID="{1F3A3890-4571-49E5-9124-5F3295EF6B9D}"
+          DTS:From="Package\Carga Estoque Vale\Truncate EstoqueFilial Vale"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição"
+          DTS:To="Package\Carga Estoque Vale\Carga EstoqueFilialVale" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="188,42"
+          Id="Package\Carga Estoque Vale\Carga EstoqueFilialVale"
+          TopLeft="313,16" />
+        <NodeLayout
+          Size="206,42"
+          Id="Package\Carga Estoque Vale\Truncate EstoqueFilial Vale"
+          TopLeft="19,14" />
+        <EdgeLayout
+          Id="Package\Carga Estoque Vale.PrecedenceConstraints[Restrição]"
+          TopLeft="225,36">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="88,0"
+              Start="0,0"
+              End="80.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="80.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="503,113"
+          Size="503,156"
+          Id="Package\Carga Estoque Vale"
+          TopLeft="15,25" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga Estoque Vale\Carga EstoqueFilialVale">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="186,42"
+          Id="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale"
+          TopLeft="540,68" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale"
+          TopLeft="110,61" />
+        <EdgeLayout
+          Id="Package\Carga Estoque Vale\Carga EstoqueFilialVale.Paths[Saída de Origem OLE DB]"
+          TopLeft="278,85.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="262,0"
+              Start="0,0"
+              End="254.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="254.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Query EstoqueVale">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Estoque Vale\Carga EstoqueFilialVale\Stage EstoqueFilialvale">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

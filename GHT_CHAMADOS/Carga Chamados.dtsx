@@ -1,0 +1,585 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/24/2022 9:26:11 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NOTSAOTEC008"
+  DTS:CreatorName="GHT\luiz.silva"
+  DTS:DTSID="{3D339074-32A0-4635-AAA7-E73578E76F5F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{82710B22-19CD-4B46-9D22-5BB4A275FCD6}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.11\sql2016.COMERCIAL_ST.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{EF733D2A-DA20-4BAD-9A4E-0BE917644C50}"
+      DTS:ObjectName="10.10.1.11\sql2016.COMERCIAL_ST.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.11\sql2016;User ID=sa;Initial Catalog=COMERCIAL_ST;Provider=SQLNCLI11.1;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxRoJLUvB906uHJA8pIiuZQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABX6BhoVutUZE1Ze6dVQjOxAAAAAASAAACgAAAAEAAAAPyFqe6HZpRSJ5Zjt7UqYmgQAAAAgg16JkSGCUkhJPs+mPjJYRQAAACMuykatRkeZYSwPrn1S5KFpxQlmw</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MySql ODBC Chamados]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{205D7AC5-89D1-4628-B6EC-E97D3552F6EE}"
+      DTS:ObjectName="MySql ODBC Chamados">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Dsn=MySql ODBC Chamados;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Contêiner da Sequência"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{8CF1F858-5094-4E28-ADD1-606334B2FCF9}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Contêiner da Sequência">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{798BCA6E-BDC6-43D7-A7A6-A922854FF6FD}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Carga Chamado OLTP STAGE"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC"
+                  componentClassID="Attunity.SSISODBCSrc"
+                  description="Fonte ODBC"
+                  name="Fonte ODBC"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="O nome da tabela a ser procurada."
+                      expressionType="Notify"
+                      name="TableName">issues</property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifique o número de linhas buscado por lote."
+                      expressionType="Notify"
+                      name="BatchSize">1000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Determina a alocação de tamanho de parte de colunas LOB"
+                      expressionType="Notify"
+                      name="LobChunkSize">32768</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determina como o componente expõe colunas CHAR. Se for False, colunas CHAR são expostas como cadeias de caracteres (DT_STR) de (multi-)bytes; se True, colunas CHAR são expostas como cadeias de caracteres largas (DT_WSTR)"
+                      expressionType="Notify"
+                      name="ExposeCharColumnsAsUnicode">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="O número de segundos para aguardar pela execução de uma instrução SQL antes de retornar ao aplicativo."
+                      expressionType="Notify"
+                      name="StatementTimeout">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código a ser usada quando não há informações de página de código disponíveis na fonte de dados."
+                      expressionType="Notify"
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Int32"
+                      description="O método usado para buscar dados."
+                      expressionType="Notify"
+                      name="FetchMethod">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="O tipo de dados ODBC C para associação de dados numéricos."
+                      expressionType="Notify"
+                      name="BindNumericAs">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Determina como o componente associaria colunas de tipos de cadeia de caracteres (multi-)byte (ou seja, SQL_CHAR, SQL_VARCHAR, SQL_LONGVARCHAR). As opções são: Unicode (SQL_C_WCHAR) e ANSI (SQL_C_CHAR)."
+                      expressionType="Notify"
+                      name="BindCharColumnsAs">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      expressionType="Notify"
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Connections[ODBCConnection]"
+                      connectionManagerID="Package.ConnectionManagers[MySql ODBC Chamados]"
+                      connectionManagerRefId="Package.ConnectionManagers[MySql ODBC Chamados]"
+                      description="A conexão de tempo de execução ODBC usada para acessar o banco de dados."
+                      name="ODBCConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC]"
+                      errorRowDisposition="FailComponent"
+                      name="Saída de fonte ODBC"
+                      truncationRowDisposition="FailComponent">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].Columns[id]"
+                          dataType="i4"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[id]"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].Columns[id]"
+                          name="id" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].Columns[category_id]"
+                          dataType="i4"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[category_id]"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].Columns[category_id]"
+                          name="category_id" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[id]"
+                          dataType="i4"
+                          name="id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[tracker_id]"
+                          dataType="i4"
+                          name="tracker_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[project_id]"
+                          dataType="i4"
+                          name="project_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[subject]"
+                          dataType="wstr"
+                          length="255"
+                          name="subject" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[description]"
+                          dataType="nText"
+                          name="description" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[due_date]"
+                          dataType="dbDate"
+                          name="due_date" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[category_id]"
+                          dataType="i4"
+                          name="category_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[status_id]"
+                          dataType="i4"
+                          name="status_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[assigned_to_id]"
+                          dataType="i4"
+                          name="assigned_to_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[priority_id]"
+                          dataType="i4"
+                          name="priority_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[fixed_version_id]"
+                          dataType="i4"
+                          name="fixed_version_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[author_id]"
+                          dataType="i4"
+                          name="author_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[lock_version]"
+                          dataType="i4"
+                          name="lock_version" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[created_on]"
+                          dataType="dbTimeStamp"
+                          name="created_on" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[updated_on]"
+                          dataType="dbTimeStamp"
+                          name="updated_on" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[start_date]"
+                          dataType="dbDate"
+                          name="start_date" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[done_ratio]"
+                          dataType="i4"
+                          name="done_ratio" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[estimated_hours]"
+                          dataType="r4"
+                          name="estimated_hours" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[parent_id]"
+                          dataType="i4"
+                          name="parent_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[root_id]"
+                          dataType="i4"
+                          name="root_id" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[lft]"
+                          dataType="i4"
+                          name="lft" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[rgt]"
+                          dataType="i4"
+                          name="rgt" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[is_private]"
+                          dataType="i1"
+                          name="is_private" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de fonte ODBC].ExternalColumns[closed_on]"
+                          dataType="dbTimeStamp"
+                          name="closed_on" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem do Error ODBC">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC].Columns[id]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC].Columns[id]"
+                          name="id" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC].Columns[category_id]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC.Outputs[Saída de Erro de Origem do Error ODBC].Columns[category_id]"
+                          name="category_id" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Consome dados do SQL Server, OLE DB, ODBC ou Oracle usando o provedor de dados .NET Framework correspondente. Use uma instrução Transact-SQL para definir o conjunto de resultados. Por exemplo, extraia dados do SQL Server com o provedor de dados .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Consome dados do SQL Server, OLE DB, ODBC ou Oracle usando o provedor de dados .NET Framework correspondente. Use uma instrução Transact-SQL para definir o conjunto de resultados. Por exemplo, extraia dados do SQL Server com o provedor de dados .NET Framework para SQL Server."
+                  name="Origem do ADO NET"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a instrução SQL usada pelo componente para extrair os dados."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">30</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica a permissão para que as colunas externas que não são de cadeias de caracteres sejam convertidas implicitamente em cadeias de caracteres nas colunas de saída."
+                      name="AllowImplicitStringConversion">true</property>
+                    <property
+                      dataType="System.String"
+                      description="O nome da tabela de banco de dados de Origem."
+                      expressionType="Notify"
+                      name="TableOrViewName"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifique o modo para recuperar informações da coluna externa"
+                      name="AccessMode"
+                      typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">0</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET.Connections[IDbConnection]"
+                      connectionManagerID="{36EA768F-B8C0-4C8C-A8A8-A4302025F8BF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[10.10.1.27.redmine_production.tecnologia]"
+                      description="Gerenciador de conexões gerenciadas"
+                      name="IDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET.Outputs[Saída do de Origem do ADO NET]"
+                      name="Saída do de Origem do ADO NET">
+                      <externalMetadataColumns
+                        isUsed="True" />
+                    </output>
+                    <output
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET.Outputs[Saída de Erro de Origem do ADO NET]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem do ADO NET">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET.Outputs[Saída de Erro de Origem do ADO NET].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET.Outputs[Saída de Erro de Origem do ADO NET].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET.Outputs[Saída de Erro de Origem do ADO NET].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET.Outputs[Saída de Erro de Origem do ADO NET].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="Origem OLE DB"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB.Connections[OleDbConnection]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <externalMetadataColumns
+                        isUsed="True" />
+                    </output>
+                    <output
+                      refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Contêiner da Sequência\Truncate Table Chamados"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{F32A8D15-F5E6-41F2-B01A-B5ECE3FFB6AE}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Table Chamados"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9FDE90A0-0D0F-426C-8A20-4EE387961B1F}"
+              SQLTask:SqlStatementSource="Truncate Table St.GhtChamados" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Contêiner da Sequência.PrecedenceConstraints[Restrição]"
+          DTS:CreationName=""
+          DTS:DTSID="{3E6BC024-0F16-415D-A374-4A268636A69B}"
+          DTS:From="Package\Contêiner da Sequência\Truncate Table Chamados"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição"
+          DTS:To="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Contêiner da Sequência\Truncate Table Chamados"
+          TopLeft="23,69" />
+        <NodeLayout
+          Size="217,42"
+          Id="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE"
+          TopLeft="342,71" />
+        <EdgeLayout
+          Id="Package\Contêiner da Sequência.PrecedenceConstraints[Restrição]"
+          TopLeft="225,91">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117,0"
+              Start="0,0"
+              End="109.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="109.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="564,168"
+          Size="564,211"
+          Id="Package\Contêiner da Sequência"
+          TopLeft="65,44" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET"
+          TopLeft="518,128" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC"
+          TopLeft="120,121" />
+        <NodeLayout
+          Size="152,42"
+          Id="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem OLE DB"
+          TopLeft="360.5,263.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Origem do ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Contêiner da Sequência\Carga Chamado OLTP STAGE\Fonte ODBC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

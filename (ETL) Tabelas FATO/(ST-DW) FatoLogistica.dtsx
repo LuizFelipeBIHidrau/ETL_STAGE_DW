@@ -1,0 +1,1606 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/12/2023 12:50:23 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NOTSAOTEC008"
+  DTS:CreatorName="GHT\luiz.silva"
+  DTS:DTSID="{873924AB-F121-4645-A9F4-F42D5B891815}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="ST-DW  FatoLogistica"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{08899261-55F8-4430-9210-639AB2B03EDF}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Criar Fato Logistica"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarefa Fluxo de Dados"
+      DTS:DTSID="{65535370-3B72-4E81-8003-B89A716BC825}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Criar Fato Logistica"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Criar Fato Logistica\Criar FatoLogistica"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+              description="Origem OLE DB"
+              name="Criar FatoLogistica"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select Distinct 
+E.IDSKEmpresa As IDSK_Filial,
+F.IdEstoque As IDSK_MovEst,
+P.IDSKFicha As IDSK_Ficha,
+B.IDSKFamilia As IDSK_Familia,
+D.IDSKMarca AS IDSK_Marca,
+C.IDSKLinha As IDSK_Linha,
+I.IDSKSiglaEst As IDSK_Sigla,
+J.IDSKLocal As IDSK_Local,
+K.IDSKCliente As IDSK_Cliente,
+L.IDSKGerencia As IDSK_Gerencia,
+G.IDSKOc As IDSK_OC,
+H.IDSKEmbarcados As IDSK_Embarcado,
+N.IDSKRomaneio As IDSK_Romaneio_E,
+N1.IDSKRomaneio As IDSK_Romaneio_S,
+R.IDSKReceb As IDSK_Recebimento_E,
+R1.IDSKReceb As IDSK_Recebimento_S,
+M.IDSKPedidoVenda As IDSK_PedidoVenda,
+A.IDSKRma As IDSK_Rma_E,
+A1.IDSKRma As IDSK_Rma_S,
+T.IDSKTempo As IDSK_Tempo,
+R.RecebDtEmissao As DtRecebEmissao,
+R.RecebDtRecebimento As DtRecebimento,
+A.DataRma As DtRma,
+A.DataConclusao As DtRmaConclusao,
+IIF(A.Procedente IS NULL, GHt_DataWarehouse.DW.FnDiasUteisSomado(R.RecebDtRecebimento, GETDATE()), GHt_DataWarehouse.DW.FnDiasUteisSomado(R.RecebDtRecebimento,A.DataConclusao)) As PrazoCorrido,
+N.DataEmissao As DtRomaneioEmissao,
+R.QtdeBaixa As QtdRecebBaixa,
+R.QtdFisica As QtdRecebFisica,
+R.RecebPrUnit,
+R.RecebPrTotal,
+P.CustoSemimposto As CustoEstoque,
+F.QtdeEstoque,
+F.FichaAcumulado,
+F.Preferencial As SaidaEstoque,
+F.DataLanc As Dt_MovEstoque,
+F.TipoLancto, 
+F.SaldoAtual,
+CASE WHEN F3.PartNumber Is Not Null And F.Origem = 'TRA' And F.TipoLancto = 'S' And F.CodLocal = '24' THEN 'APROVADO' ELSE NUll END As MovQuarentena,
+F.Siaelocfil As ConstaSiaeLoc
+
+from GHT_STAGE.ST.MovEstoque (NOLOCK) As F
+Left Join GHT_DATAWAREHOUSE.DW.DimCadFicha As P (NOLOCK) On (F.PartNumber = P.PartNumber And F.NomeFornecedor = P.NomeFornecedor)
+Left Join GHT_DATAWAREHOUSE.DW.DimTempo As T (NOLOCK) On (CAST(F.DataLanc As date) = CAST(T.DATA As date))
+LEft Join GHT_DATAWAREHOUSE.DW.DimSiglaEstoque As I (NOLOCK) On (F.Origem = I.Sigla)
+Left Join GHT_DATAWAREHOUSE.DW.DimCadFamilia As B (NOLOCK) On (P.CodFamilia = B.CodFam)
+Left Join GHT_DATAWAREHOUSE.DW.DimCadLinha As C (NOLOCK) On (P.CodLinha = C.CodLin)
+Left Join GHT_DATAWAREHOUSE.DW.DimCadMarca As D (NOLOCK) On (P.CodMarca = D.CodMarc)
+Left Join GHT_DATAWAREHOUSE.DW.DimLocalEstoque As J (NOLOCK) On (F.CodLocal = J.LocalCod)
+Left Join GHT_DATAWAREHOUSE.DW.DimCadEmpresa As E (NOLOCK) On (F.CodFilial = E.CodEmpresa)
+Left Join GHT_DATAWAREHOUSE.DW.DimRecebimentoNfItens_NL As R On (F.CodFilial = R.IdFilial And F.NumLanc = R.IdReceb And F.PartNumber = R.ProdNumPeca And F.Origem IN ('RNF', 'DEV'))  --Recebimento de Entrada
+Left Join GHT_DATAWAREHOUSE.DW.DimRomaneioItens_NL (NOLOCK) As N1 ON (R.IdFilial = N1.Filial And R.CodRomaneio = N1.CodRomaneio And R.CodSequRomaneio = N1.CodSequRomaneio)
+Left Join GHT_DATAWAREHOUSE.DW.DimPedidoVenda_NL (NOLOCK) As M ON (F.CodFilial = M.CodEmpresa And F.NumLanc = M.IdPedidoVenda And F.PartNumber = M.PartNumber And F.NomeFornecedor = M.NomeFornecedor And F.Origem In('RMN','PED') )
+Left Join GHT_DATAWAREHOUSE.DW.DimRomaneioItens_NL (NOLOCK) As N ON (M.CodEmpresa = N.Filial And M.IdPedidoVenda = N.CodPedVenda And M.PartNumber = N.ProdNumpeca)
+Left Join GHT_DATAWAREHOUSE.DW.DimRecebimentoNfItens_NL (NOLOCK) As R1 On (N.Filial = R1.IdFilial And N.CodRomaneio = R1.CodRomaneio And N.CodSequRomaneio = R1.CodSequRomaneio)
+Left Join GHT_DATAWAREHOUSE.DW.DimCadCliente As K (NOLOCK) On (R.IdCliente = K.CliCod)
+Left Join GHT_DATAWAREHOUSE.DW.DimCadGerencia As L (NOLOCK) On (K.CliGerencia = L.CodGer)
+Left Join GHT_DATAWAREHOUSE.DW.DimEmbarcados (NOLOCK) As H On (R.IdFilial = H.IdFilial And R.IdReceb = H.NumeroRec And R.ItemSequencia = H.NumItem)
+Left Join GHT_DATAWAREHOUSE.DW.DimOrdemCompra_NL (NOLOCK) As G On (R.IdFilial = G.CodEmpresa And R.OrdemCompra = G.IdOc And R.ItemOrdemCompra = G.IdOcItens)
+Left Join GHT_DATAWAREHOUSE.DW.DimRmaItens_NL (NOLOCK) As A ON (R.IdFilial = A.CodEmpresa And R.NumeroRma = A.CodRma And R.CodRomaneio = A.CodRomaneio And R.CodSequRomaneio = A.CodSequRomaneio)
+Left Join GHT_DATAWAREHOUSE.DW.DimRmaItens_NL (NOLOCK) As A1 ON (R1.IdFilial = A1.CodEmpresa And R1.NumeroRma = A1.CodRma And R1.CodRomaneio = A1.CodRomaneio And R1.CodSequRomaneio = A1.CodSequRomaneio)
+Left Join (Select Distinct F1.CodFilial, F1.PartNumber, F1.NomeFornecedor from GHT_STAGE.ST.MovEstoque (NOLOCK) As F1 Inner Join (Select Distinct CodFilial, PartNumber, NomeFornecedor from GHT_STAGE.ST.MovEstoque (NOLOCK) where CodLocal = '24') As F2 ON (F1.CodFilial = F2.CodFilial And F1.PartNumber = F2.PartNumber And F1.NomeFornecedor = F2.NomeFornecedor)
+where F1.Origem = 'TRA' And F1.CodLocal IN('01', '97')) As F3 On (F.CodFilial = F3.CodFilial And F.PartNumber = F3.PartNumber And F.NomeFornecedor = F3.NomeFornecedor)</property>
+                <property
+                  dataType="System.String"
+                  description="A variável que contém o comando SQL a ser executado."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Criar Fato Logistica\Criar FatoLogistica.Connections[OleDbConnection]"
+                  connectionManagerID="{212658AD-9DF7-420C-A423-6A8373948A16}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[10.10.1.28_sql2016.GHT_STAGE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB]"
+                  name="Saída de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Filial]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Filial]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Filial]"
+                      name="IDSK_Filial"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Ficha]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Ficha]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Ficha]"
+                      name="IDSK_Ficha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Familia]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Familia]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Familia]"
+                      name="IDSK_Familia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Marca]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Marca]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Marca]"
+                      name="IDSK_Marca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Linha]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Linha]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Linha]"
+                      name="IDSK_Linha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Sigla]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Sigla]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Sigla]"
+                      name="IDSK_Sigla"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Local]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Local]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Local]"
+                      name="IDSK_Local"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Cliente]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Cliente]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Cliente]"
+                      name="IDSK_Cliente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Gerencia]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Gerencia]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Gerencia]"
+                      name="IDSK_Gerencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_OC]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_OC]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_OC]"
+                      name="IDSK_OC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Embarcado]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Embarcado]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Embarcado]"
+                      name="IDSK_Embarcado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRecebEmissao]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRecebEmissao]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRecebEmissao]"
+                      name="DtRecebEmissao"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRecebimento]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRecebimento]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRecebimento]"
+                      name="DtRecebimento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRma]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRma]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRma]"
+                      name="DtRma"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRmaConclusao]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRmaConclusao]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRmaConclusao]"
+                      name="DtRmaConclusao"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[PrazoCorrido]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[PrazoCorrido]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[PrazoCorrido]"
+                      name="PrazoCorrido"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRomaneioEmissao]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRomaneioEmissao]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRomaneioEmissao]"
+                      name="DtRomaneioEmissao"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdRecebBaixa]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdRecebBaixa]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdRecebBaixa]"
+                      name="QtdRecebBaixa"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdRecebFisica]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdRecebFisica]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdRecebFisica]"
+                      name="QtdRecebFisica"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdeEstoque]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdeEstoque]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdeEstoque]"
+                      name="QtdeEstoque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[FichaAcumulado]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[FichaAcumulado]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[FichaAcumulado]"
+                      name="FichaAcumulado"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[SaidaEstoque]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[SaidaEstoque]"
+                      length="20"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[SaidaEstoque]"
+                      name="SaidaEstoque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[Dt_MovEstoque]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[Dt_MovEstoque]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[Dt_MovEstoque]"
+                      name="Dt_MovEstoque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[TipoLancto]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[TipoLancto]"
+                      length="1"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[TipoLancto]"
+                      name="TipoLancto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[SaldoAtual]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[SaldoAtual]"
+                      length="50"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[SaldoAtual]"
+                      name="SaldoAtual"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[ConstaSiaeLoc]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[ConstaSiaeLoc]"
+                      length="20"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[ConstaSiaeLoc]"
+                      name="ConstaSiaeLoc"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Tempo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Tempo]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Tempo]"
+                      name="IDSK_Tempo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[RecebPrUnit]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[RecebPrUnit]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[RecebPrUnit]"
+                      name="RecebPrUnit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[RecebPrTotal]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[RecebPrTotal]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[RecebPrTotal]"
+                      name="RecebPrTotal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[MovQuarentena]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[MovQuarentena]"
+                      length="8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[MovQuarentena]"
+                      name="MovQuarentena"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_MovEst]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_MovEst]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_MovEst]"
+                      name="IDSK_MovEst"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Romaneio_E]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Romaneio_E]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Romaneio_E]"
+                      name="IDSK_Romaneio_E"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Romaneio_S]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Romaneio_S]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Romaneio_S]"
+                      name="IDSK_Romaneio_S"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Recebimento_E]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Recebimento_E]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Recebimento_E]"
+                      name="IDSK_Recebimento_E"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Recebimento_S]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Recebimento_S]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Recebimento_S]"
+                      name="IDSK_Recebimento_S"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_PedidoVenda]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_PedidoVenda]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_PedidoVenda]"
+                      name="IDSK_PedidoVenda"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Rma_E]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Rma_E]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Rma_E]"
+                      name="IDSK_Rma_E"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Rma_S]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Rma_S]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Rma_S]"
+                      name="IDSK_Rma_S"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[CustoEstoque]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[CustoEstoque]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[CustoEstoque]"
+                      name="CustoEstoque"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Filial]"
+                      dataType="i4"
+                      name="IDSK_Filial" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Ficha]"
+                      dataType="i4"
+                      name="IDSK_Ficha" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Familia]"
+                      dataType="i4"
+                      name="IDSK_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Marca]"
+                      dataType="i4"
+                      name="IDSK_Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Linha]"
+                      dataType="i4"
+                      name="IDSK_Linha" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Sigla]"
+                      dataType="i4"
+                      name="IDSK_Sigla" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Local]"
+                      dataType="i4"
+                      name="IDSK_Local" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Cliente]"
+                      dataType="i4"
+                      name="IDSK_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Gerencia]"
+                      dataType="i4"
+                      name="IDSK_Gerencia" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_OC]"
+                      dataType="i4"
+                      name="IDSK_OC" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Embarcado]"
+                      dataType="i4"
+                      name="IDSK_Embarcado" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRecebEmissao]"
+                      dataType="dbTimeStamp"
+                      name="DtRecebEmissao" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRecebimento]"
+                      dataType="dbTimeStamp"
+                      name="DtRecebimento" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRma]"
+                      dataType="dbTimeStamp"
+                      name="DtRma" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRmaConclusao]"
+                      dataType="dbTimeStamp"
+                      name="DtRmaConclusao" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[PrazoCorrido]"
+                      dataType="i4"
+                      name="PrazoCorrido" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[DtRomaneioEmissao]"
+                      dataType="dbTimeStamp"
+                      name="DtRomaneioEmissao" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdRecebBaixa]"
+                      dataType="r8"
+                      name="QtdRecebBaixa" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdRecebFisica]"
+                      dataType="r8"
+                      name="QtdRecebFisica" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[QtdeEstoque]"
+                      dataType="r8"
+                      name="QtdeEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[FichaAcumulado]"
+                      dataType="r8"
+                      name="FichaAcumulado" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[SaidaEstoque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="SaidaEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[Dt_MovEstoque]"
+                      dataType="dbTimeStamp"
+                      name="Dt_MovEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[TipoLancto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TipoLancto" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[SaldoAtual]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="SaldoAtual" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[ConstaSiaeLoc]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ConstaSiaeLoc" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Tempo]"
+                      dataType="i4"
+                      name="IDSK_Tempo" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[RecebPrUnit]"
+                      dataType="r8"
+                      name="RecebPrUnit" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[RecebPrTotal]"
+                      dataType="r8"
+                      name="RecebPrTotal" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[MovQuarentena]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="MovQuarentena" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_MovEst]"
+                      dataType="i4"
+                      name="IDSK_MovEst" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Romaneio_E]"
+                      dataType="i4"
+                      name="IDSK_Romaneio_E" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Romaneio_S]"
+                      dataType="i4"
+                      name="IDSK_Romaneio_S" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Recebimento_E]"
+                      dataType="i4"
+                      name="IDSK_Recebimento_E" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Recebimento_S]"
+                      dataType="i4"
+                      name="IDSK_Recebimento_S" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_PedidoVenda]"
+                      dataType="i4"
+                      name="IDSK_PedidoVenda" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Rma_E]"
+                      dataType="i4"
+                      name="IDSK_Rma_E" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSK_Rma_S]"
+                      dataType="i4"
+                      name="IDSK_Rma_S" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].ExternalColumns[CustoEstoque]"
+                      dataType="r8"
+                      name="CustoEstoque" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB]"
+                  isErrorOut="true"
+                  name="Saída de Erro de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Filial]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Filial]"
+                      name="IDSK_Filial" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Ficha]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Ficha]"
+                      name="IDSK_Ficha" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Familia]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Familia]"
+                      name="IDSK_Familia" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Marca]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Marca]"
+                      name="IDSK_Marca" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Linha]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Linha]"
+                      name="IDSK_Linha" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Sigla]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Sigla]"
+                      name="IDSK_Sigla" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Local]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Local]"
+                      name="IDSK_Local" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Cliente]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Cliente]"
+                      name="IDSK_Cliente" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Gerencia]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Gerencia]"
+                      name="IDSK_Gerencia" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_OC]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_OC]"
+                      name="IDSK_OC" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Embarcado]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Embarcado]"
+                      name="IDSK_Embarcado" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRecebEmissao]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRecebEmissao]"
+                      name="DtRecebEmissao" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRecebimento]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRecebimento]"
+                      name="DtRecebimento" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRma]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRma]"
+                      name="DtRma" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRmaConclusao]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRmaConclusao]"
+                      name="DtRmaConclusao" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[PrazoCorrido]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[PrazoCorrido]"
+                      name="PrazoCorrido" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRomaneioEmissao]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[DtRomaneioEmissao]"
+                      name="DtRomaneioEmissao" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdRecebBaixa]"
+                      dataType="r8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdRecebBaixa]"
+                      name="QtdRecebBaixa" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdRecebFisica]"
+                      dataType="r8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdRecebFisica]"
+                      name="QtdRecebFisica" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdeEstoque]"
+                      dataType="r8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[QtdeEstoque]"
+                      name="QtdeEstoque" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[FichaAcumulado]"
+                      dataType="r8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[FichaAcumulado]"
+                      name="FichaAcumulado" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[SaidaEstoque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[SaidaEstoque]"
+                      name="SaidaEstoque" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[Dt_MovEstoque]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[Dt_MovEstoque]"
+                      name="Dt_MovEstoque" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[TipoLancto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[TipoLancto]"
+                      name="TipoLancto" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[SaldoAtual]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[SaldoAtual]"
+                      name="SaldoAtual" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[ConstaSiaeLoc]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[ConstaSiaeLoc]"
+                      name="ConstaSiaeLoc" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Tempo]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Tempo]"
+                      name="IDSK_Tempo" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[RecebPrUnit]"
+                      dataType="r8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[RecebPrUnit]"
+                      name="RecebPrUnit" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[RecebPrTotal]"
+                      dataType="r8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[RecebPrTotal]"
+                      name="RecebPrTotal" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[MovQuarentena]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[MovQuarentena]"
+                      name="MovQuarentena" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_MovEst]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_MovEst]"
+                      name="IDSK_MovEst" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Romaneio_E]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Romaneio_E]"
+                      name="IDSK_Romaneio_E" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Romaneio_S]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Romaneio_S]"
+                      name="IDSK_Romaneio_S" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Recebimento_E]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Recebimento_E]"
+                      name="IDSK_Recebimento_E" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Recebimento_S]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Recebimento_S]"
+                      name="IDSK_Recebimento_S" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_PedidoVenda]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_PedidoVenda]"
+                      name="IDSK_PedidoVenda" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Rma_E]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Rma_E]"
+                      name="IDSK_Rma_E" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Rma_S]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSK_Rma_S]"
+                      name="IDSK_Rma_S" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[CustoEstoque]"
+                      dataType="r8"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Erro de Origem OLE DB].Columns[CustoEstoque]"
+                      name="CustoEstoque" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Criar Fato Logistica\DW FatoLogistica"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino OLE DB"
+              name="DW FatoLogistica"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT IDSK_Filial
+      ,IDSK_Ficha
+      ,IDSK_Familia
+      ,IDSK_Marca
+      ,IDSK_Linha
+      ,IDSK_Sigla
+      ,IDSK_Local
+      ,IDSK_Cliente
+      ,IDSK_Gerencia
+      ,IDSK_OC
+      ,IDSK_Romaneio_E
+      ,IDSK_Romaneio_S
+      ,IDSK_Embarcado
+      ,IDSK_Recebimento_E
+      ,IDSK_Recebimento_S
+      ,IDSK_PedidoVenda
+      ,IDSK_MovEstoque
+      ,IDSK_Rma_E
+      ,IDSK_Rma_S
+      ,IDSK_Tempo
+      ,DtRecebEmissao
+      ,DtRecebimento
+      ,DtRma
+      ,DtRmaConclusao
+      ,DtRomaneioEmmissao
+      ,DtMovimentoEstoque
+      ,Tipolancto
+      ,PrazoCorrido
+      ,QtdRecebBaixa
+      ,QtdRecebFisica
+      ,PrecoUnitReceb
+      ,PrecoTotalReceb
+      ,CustoEstoque 
+      ,QtdEstoque
+      ,FichaAcumulado
+      ,SaidaEstoque
+      ,SaldoAtual
+      ,MovQuarentenaStatus
+      ,ConstaSIAELOCFIL
+  FROM DW.FatoLogistica</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Criar Fato Logistica\DW FatoLogistica.Connections[OleDbConnection]"
+                  connectionManagerID="{F45200A6-BD1B-4584-81DE-F998066D250B}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[10.10.1.28_sql2016.GHT_DATAWAREHOUSE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB]"
+                  errorOrTruncationOperation="Inserir"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de Destino OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Filial]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Filial"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Filial]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Filial]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Ficha]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Ficha"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Ficha]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Ficha]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Familia]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Familia"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Familia]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Familia]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Marca]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Marca"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Marca]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Marca]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Linha]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Linha"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Linha]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Linha]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Sigla]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Sigla"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Sigla]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Sigla]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Local]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Local"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Local]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Local]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Cliente]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Cliente"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Cliente]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Cliente]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Gerencia]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Gerencia"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Gerencia]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Gerencia]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_OC]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_OC"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_OC]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_OC]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Embarcado]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Embarcado"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Embarcado]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Embarcado]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[DtRecebEmissao]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="DtRecebEmissao"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRecebEmissao]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRecebEmissao]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[DtRecebimento]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="DtRecebimento"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRecebimento]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRecebimento]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[DtRma]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="DtRma"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRma]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRma]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[DtRmaConclusao]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="DtRmaConclusao"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRmaConclusao]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRmaConclusao]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[PrazoCorrido]"
+                      cachedDataType="i4"
+                      cachedName="PrazoCorrido"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[PrazoCorrido]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[PrazoCorrido]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[QtdRecebBaixa]"
+                      cachedDataType="r8"
+                      cachedName="QtdRecebBaixa"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdRecebBaixa]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdRecebBaixa]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[QtdRecebFisica]"
+                      cachedDataType="r8"
+                      cachedName="QtdRecebFisica"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdRecebFisica]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdRecebFisica]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[FichaAcumulado]"
+                      cachedDataType="r8"
+                      cachedName="FichaAcumulado"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[FichaAcumulado]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[FichaAcumulado]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[SaidaEstoque]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="SaidaEstoque"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[SaidaEstoque]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[SaidaEstoque]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[TipoLancto]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="TipoLancto"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[Tipolancto]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[TipoLancto]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[SaldoAtual]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="SaldoAtual"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[SaldoAtual]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[SaldoAtual]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[DtRomaneioEmissao]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="DtRomaneioEmissao"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRomaneioEmmissao]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[DtRomaneioEmissao]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[Dt_MovEstoque]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Dt_MovEstoque"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtMovimentoEstoque]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[Dt_MovEstoque]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[QtdeEstoque]"
+                      cachedDataType="r8"
+                      cachedName="QtdeEstoque"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdEstoque]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[QtdeEstoque]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[ConstaSiaeLoc]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ConstaSiaeLoc"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[ConstaSIAELOCFIL]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[ConstaSiaeLoc]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Tempo]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Tempo"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Tempo]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Tempo]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[RecebPrUnit]"
+                      cachedDataType="r8"
+                      cachedName="RecebPrUnit"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[PrecoUnitReceb]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[RecebPrUnit]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[RecebPrTotal]"
+                      cachedDataType="r8"
+                      cachedName="RecebPrTotal"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[PrecoTotalReceb]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[RecebPrTotal]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[MovQuarentena]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="MovQuarentena"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[MovQuarentenaStatus]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[MovQuarentena]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_MovEst]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_MovEst"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_MovEstoque]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_MovEst]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Romaneio_E]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Romaneio_E"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Romaneio_E]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Romaneio_E]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Romaneio_S]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Romaneio_S"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Romaneio_S]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Romaneio_S]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Recebimento_E]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Recebimento_E"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Recebimento_E]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Recebimento_E]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Recebimento_S]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Recebimento_S"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Recebimento_S]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Recebimento_S]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Rma_E]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Rma_E"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Rma_E]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Rma_E]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_Rma_S]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_Rma_S"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Rma_S]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_Rma_S]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[IDSK_PedidoVenda]"
+                      cachedDataType="i4"
+                      cachedName="IDSK_PedidoVenda"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_PedidoVenda]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[IDSK_PedidoVenda]" />
+                    <inputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].Columns[CustoEstoque]"
+                      cachedDataType="r8"
+                      cachedName="CustoEstoque"
+                      externalMetadataColumnId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[CustoEstoque]"
+                      lineageId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB].Columns[CustoEstoque]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Filial]"
+                      dataType="i4"
+                      name="IDSK_Filial" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Ficha]"
+                      dataType="i4"
+                      name="IDSK_Ficha" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Familia]"
+                      dataType="i4"
+                      name="IDSK_Familia" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Marca]"
+                      dataType="i4"
+                      name="IDSK_Marca" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Linha]"
+                      dataType="i4"
+                      name="IDSK_Linha" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Sigla]"
+                      dataType="i4"
+                      name="IDSK_Sigla" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Local]"
+                      dataType="i4"
+                      name="IDSK_Local" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Cliente]"
+                      dataType="i4"
+                      name="IDSK_Cliente" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Gerencia]"
+                      dataType="i4"
+                      name="IDSK_Gerencia" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_OC]"
+                      dataType="i4"
+                      name="IDSK_OC" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Embarcado]"
+                      dataType="i4"
+                      name="IDSK_Embarcado" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRecebEmissao]"
+                      dataType="dbTimeStamp"
+                      name="DtRecebEmissao" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRecebimento]"
+                      dataType="dbTimeStamp"
+                      name="DtRecebimento" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRma]"
+                      dataType="dbTimeStamp"
+                      name="DtRma" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRmaConclusao]"
+                      dataType="dbTimeStamp"
+                      name="DtRmaConclusao" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtRomaneioEmmissao]"
+                      dataType="dbTimeStamp"
+                      name="DtRomaneioEmmissao" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[DtMovimentoEstoque]"
+                      dataType="dbTimeStamp"
+                      name="DtMovimentoEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[Tipolancto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Tipolancto" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[PrazoCorrido]"
+                      dataType="i4"
+                      name="PrazoCorrido" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdRecebBaixa]"
+                      dataType="r8"
+                      name="QtdRecebBaixa" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdRecebFisica]"
+                      dataType="r8"
+                      name="QtdRecebFisica" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtdEstoque]"
+                      dataType="r8"
+                      name="QtdEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[FichaAcumulado]"
+                      dataType="r8"
+                      name="FichaAcumulado" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[SaidaEstoque]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="SaidaEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[SaldoAtual]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="SaldoAtual" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[ConstaSIAELOCFIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ConstaSIAELOCFIL" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Tempo]"
+                      dataType="i4"
+                      name="IDSK_Tempo" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[PrecoUnitReceb]"
+                      dataType="r8"
+                      name="PrecoUnitReceb" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[PrecoTotalReceb]"
+                      dataType="r8"
+                      name="PrecoTotalReceb" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[MovQuarentenaStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="MovQuarentenaStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_MovEstoque]"
+                      dataType="i4"
+                      name="IDSK_MovEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Romaneio_E]"
+                      dataType="i4"
+                      name="IDSK_Romaneio_E" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Romaneio_S]"
+                      dataType="i4"
+                      name="IDSK_Romaneio_S" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Recebimento_E]"
+                      dataType="i4"
+                      name="IDSK_Recebimento_E" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Recebimento_S]"
+                      dataType="i4"
+                      name="IDSK_Recebimento_S" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Rma_E]"
+                      dataType="i4"
+                      name="IDSK_Rma_E" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_Rma_S]"
+                      dataType="i4"
+                      name="IDSK_Rma_S" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSK_PedidoVenda]"
+                      dataType="i4"
+                      name="IDSK_PedidoVenda" />
+                    <externalMetadataColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB].ExternalColumns[CustoEstoque]"
+                      dataType="r8"
+                      name="CustoEstoque" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Criar Fato Logistica\DW FatoLogistica.Outputs[Saída de Erro de Destino OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Destino OLE DB"
+                  synchronousInputId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\DW FatoLogistica.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Criar Fato Logistica\DW FatoLogistica.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Criar Fato Logistica\DW FatoLogistica.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Criar Fato Logistica.Paths[Saída de Origem OLE DB]"
+              endId="Package\Criar Fato Logistica\DW FatoLogistica.Inputs[Entrada de Destino OLE DB]"
+              name="Saída de Origem OLE DB"
+              startId="Package\Criar Fato Logistica\Criar FatoLogistica.Outputs[Saída de Origem OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate Fato Logistica"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{1553AE77-78AA-41D3-8D4D-C44813A64986}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate Fato Logistica"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F45200A6-BD1B-4584-81DE-F998066D250B}"
+          SQLTask:SqlStatementSource="truncate table Dw.FatoLogistica" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição]"
+      DTS:CreationName=""
+      DTS:DTSID="{41F1CFB5-4531-4633-B946-B809806703A8}"
+      DTS:From="Package\truncate Fato Logistica"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição"
+      DTS:To="Package\Criar Fato Logistica" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Criar Fato Logistica"
+          TopLeft="387,69" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\truncate Fato Logistica"
+          TopLeft="37,71" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição]"
+          TopLeft="223,91">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="164,0"
+              Start="0,0"
+              End="156.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="156.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Criar Fato Logistica">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Criar Fato Logistica\DW FatoLogistica"
+          TopLeft="369,60" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Criar Fato Logistica\Criar FatoLogistica"
+          TopLeft="68,61" />
+        <EdgeLayout
+          Id="Package\Criar Fato Logistica.Paths[Saída de Origem OLE DB]"
+          TopLeft="234,81.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="135,0"
+              Start="0,0"
+              End="127.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="127.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Criar Fato Logistica\Criar FatoLogistica">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Criar Fato Logistica\DW FatoLogistica">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

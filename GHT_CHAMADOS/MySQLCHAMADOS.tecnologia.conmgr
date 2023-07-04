@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="MySQLCHAMADOS.tecnologia"
+  DTS:DTSID="{1C227367-AF06-426E-9911-2EE63B73CDB3}"
+  DTS:CreationName="ODBC">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="uid=tecnologia;Dsn=MySQLCHAMADOS;">
+      <DTS:Password
+        DTS:Name="pwd"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxRoJLUvB906uHJA8pIiuZQAAAAACAAAAAAADZgAAwAAAABAAAADWF+FIzYJFEaUYrrfaX6J6AAAAAASAAACgAAAAEAAAAExLNR2DDHaeM2UfK0dY36t4AAAAIHynvprRAb/oY0n6Jx8/M4mahU8VqUakSkZ5ueyP/Ia72sbAMewiI+qeIEN2Wm8UBckXZePiQu+fnXY/gLAv2p+SfHhG8KplkGyB+TICmuDU7Pqlj83hx0cZSzgcc/A1AWy06yStoOsV8R911B2CDKAtgV7IlK1GFAAAAM94oYCb/mhXWKkaoeXAJIkpGlU7</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -1,0 +1,387 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/3/2022 4:49:47 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NOTSAOTEC008"
+  DTS:CreatorName="GHT\luiz.silva"
+  DTS:DTSID="{FE5BC4E6-B718-4BFD-B1C4-B57DECED1E43}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{AE4DF1CB-4DA1-4911-AD99-D4EC21765BDD}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{5BC607D8-D0F9-4461-896E-A94EF79057A8}"
+      DTS:ObjectName="10.10.1.28\sql2016.GHT_DATAWAREHOUSE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=GHT_DATAWAREHOUSE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_INTELIGENCIA]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BC8EE899-B92D-4DA7-88E1-CE814B197BAE}"
+      DTS:ObjectName="10.10.1.28\sql2016.GHT_INTELIGENCIA">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=GHT_INTELIGENCIA;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_OLTP]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{124D2748-C73C-4038-B961-46438A8C3545}"
+      DTS:ObjectName="10.10.1.28\sql2016.GHT_OLTP">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=GHT_OLTP;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_STAGE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F6A6D87F-4658-4C04-814A-0DFC1863B6EB}"
+      DTS:ObjectName="10.10.1.28\sql2016.GHT_STAGE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=GHT_STAGE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.SSISDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AC21B149-2B6D-44C2-98CB-11AAA2812C10}"
+      DTS:ObjectName="10.10.1.28\sql2016.SSISDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=SSISDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Banco de Dados BI]"
+      DTS:CreationName="ADO.NET:SQL"
+      DTS:DTSID="{E8E8A957-042B-44DB-8D9F-7765FEE6EE4D}"
+      DTS:ObjectName="Banco de Dados BI">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Integrated Security=SSPI;Connect Timeout=30;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Backup Base GHT BI"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{8FAC1D5D-0D68-4377-9956-8B478CB98EB8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Backup Base GHT BI"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AC21B149-2B6D-44C2-98CB-11AAA2812C10}"
+          SQLTask:SqlStatementSource="&#xA;DECLARE @name VARCHAR(50) -- database name &#xA;DECLARE @path VARCHAR(256) -- path for backup files &#xA;DECLARE @fileName VARCHAR(256) -- filename for backup &#xA;DECLARE @fileDate VARCHAR(20) -- used for file name&#xA;-- specify database backup directory&#xA;SET @path = 'E:\BACKUP\' &#xA;-- specify filename format&#xA;SELECT @fileDate = CONVERT(VARCHAR(20),GETDATE(),112)&#xA;DECLARE db_cursor CURSOR READ_ONLY FOR &#xA;&#xA;SELECT A.name&#xA;FROM master.sys.databases A&#xA;LEFT JOIN sys.master_files B ON A.database_id =  B.database_id AND TYPE = 0&#xA;WHERE A.name NOT IN ('tempdb')&#xA;AND A.state = 0 -- database is online&#xA;AND is_in_standby = 0 -- database is not read only for log shipping&#xA;and isnull(source_database_id,'')= '' --  snapshots&#xA;ORDER BY B.SIZE &#xA;&#xA;OPEN db_cursor  &#xA;&#xA;FETCH NEXT FROM db_cursor INTO @name  &#xA;&#xA;WHILE @@FETCH_STATUS = 0  &#xA;&#xA;BEGIN  &#xA;&#xA;   SET @fileName = @path + 'GHTBI-' +@name+ '.BAK' &#xA;   --print ( @name + ' ' + convert(varchar(50),getdate(),120))&#xA;   --BACKUP DATABASE @name   TO DISK = @fileName WITH NOFORMAT, INIT,SKIP, NOREWIND, NOUNLOAD &#xA;   BACKUP DATABASE @name   TO DISK = @fileName WITH NOFORMAT, INIT,SKIP, NOREWIND, NOUNLOAD, COMPRESSION&#xA;&#xA;   FETCH NEXT FROM db_cursor INTO @name  &#xA;   --print ( 'FIM ' + convert(varchar(50),getdate(),120))&#xA;END  " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Dropando tabela Fato"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:Disabled="True"
+      DTS:DTSID="{05374CAF-C901-4335-8425-BA3370424162}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Dropando tabela Fato"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5BC607D8-D0F9-4461-896E-A94EF79057A8}"
+          SQLTask:SqlStatementSource="Drop table GHT_DATAWAREHOUSE.DW.FATO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpar Log GHT_DATAWAREHOUSE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{60014FE9-4BD3-4B7C-8A55-54219AC34DB6}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpar Log GHT_DATAWAREHOUSE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5BC607D8-D0F9-4461-896E-A94EF79057A8}"
+          SQLTask:SqlStatementSource="&#xA;use GHT_DATAWAREHOUSE&#xA;go&#xA;&#xA;ALTER DATABASE GHT_DATAWAREHOUSE&#xA;SET RECOVERY SIMPLE;&#xA;GO&#xA;DBCC SHRINKFILE ('GHT_DATAWAREHOUSE_log', 1);&#xA;GO&#xA;&#xA;ALTER DATABASE GHT_DATAWAREHOUSE&#xA;SET RECOVERY FULL;&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpar Log GHT_INTELIGENCIA"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{6496DADF-E965-4F09-9E22-F7D0F98EE03E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpar Log GHT_INTELIGENCIA"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{BC8EE899-B92D-4DA7-88E1-CE814B197BAE}"
+          SQLTask:SqlStatementSource="use GHT_INTELIGENCIA&#xA;go&#xA;&#xA;ALTER DATABASE GHT_INTELIGENCIA&#xA;SET RECOVERY SIMPLE;&#xA;GO&#xA;DBCC SHRINKFILE ('GHT_INTELIGENCIA_log', 1);&#xA;GO&#xA;&#xA;ALTER DATABASE GHT_INTELIGENCIA&#xA;SET RECOVERY FULL;&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpar Log GHT_OLTP"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{F5765C80-0736-4F0F-8909-634DBC93990B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpar Log GHT_OLTP"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{124D2748-C73C-4038-B961-46438A8C3545}"
+          SQLTask:SqlStatementSource="use GHT_OLTP&#xA;go&#xA;&#xA;ALTER DATABASE GHT_OLTP&#xA;SET RECOVERY SIMPLE;&#xA;GO&#xA;DBCC SHRINKFILE ('GHT_OLTP_log', 1);&#xA;GO&#xA;&#xA;ALTER DATABASE GHT_OLTP&#xA;SET RECOVERY FULL;&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Limpar Log GHT_STAGE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarefa Executar SQL"
+      DTS:DTSID="{54C99DBA-BBE7-441D-89D1-AB4003D2EDD8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Limpar Log GHT_STAGE"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F6A6D87F-4658-4C04-814A-0DFC1863B6EB}"
+          SQLTask:SqlStatementSource="&#xA;use GHT_STAGE&#xA;go&#xA;&#xA;ALTER DATABASE GHT_STAGE&#xA;SET RECOVERY SIMPLE;&#xA;GO&#xA;DBCC SHRINKFILE ('GHT_STAGE_log', 1);&#xA;GO&#xA;&#xA;ALTER DATABASE GHT_STAGE&#xA;SET RECOVERY FULL;&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição]"
+      DTS:CreationName=""
+      DTS:DTSID="{87821661-0771-41F9-9040-CAE53AF31EE0}"
+      DTS:From="Package\Limpar Log GHT_INTELIGENCIA"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição"
+      DTS:To="Package\Limpar Log GHT_OLTP" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{8871548A-F134-4282-A8FE-A69657F58D5B}"
+      DTS:From="Package\Limpar Log GHT_OLTP"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição 1"
+      DTS:To="Package\Limpar Log GHT_STAGE" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{70954275-B4C1-4771-9A6F-BC54D336865E}"
+      DTS:From="Package\Limpar Log GHT_STAGE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição 2"
+      DTS:To="Package\Limpar Log GHT_DATAWAREHOUSE" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{47ABF846-5784-4A95-858E-597F0BAA636E}"
+      DTS:From="Package\Backup Base GHT BI"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição 3"
+      DTS:To="Package\Limpar Log GHT_INTELIGENCIA" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{E918A93E-DD4A-46DA-AC6F-CF984581C3E4}"
+      DTS:From="Package\Limpar Log GHT_DATAWAREHOUSE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição 4"
+      DTS:To="Package\Dropando tabela Fato" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Backup Base GHT BI"
+          TopLeft="48,27" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Dropando tabela Fato"
+          TopLeft="405,381" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Limpar Log GHT_DATAWAREHOUSE"
+          TopLeft="375,257" />
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Limpar Log GHT_INTELIGENCIA"
+          TopLeft="382,24" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\Limpar Log GHT_OLTP"
+          TopLeft="408,97" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\Limpar Log GHT_STAGE"
+          TopLeft="399,180" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição]"
+          TopLeft="499.25,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31"
+              Start="0,0"
+              End="0,23.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição 1]"
+          TopLeft="498.25,139">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição 2]"
+          TopLeft="497.75,222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição 3]"
+          TopLeft="224,46.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="158,0"
+              Start="0,0"
+              End="150.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="150.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição 4]"
+          TopLeft="497.75,299">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,82"
+              Start="0,0"
+              End="0,74.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,74.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

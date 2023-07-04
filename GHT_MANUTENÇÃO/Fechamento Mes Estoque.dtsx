@@ -1,0 +1,1587 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/6/2023 4:55:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NOTSAOTEC008"
+  DTS:CreatorName="GHT\luiz.silva"
+  DTS:DTSID="{6EECA4F3-F4A8-4C80-8D44-FDCE07271662}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="Fechamento Mes Estoque"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{F18CD85F-ECA5-41AF-9720-A03A2F8F62AA}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D0FD3163-5840-44BE-BB8C-2CC3FDAB2D07}"
+      DTS:ObjectName="10.10.1.28\sql2016.GHT_DATAWAREHOUSE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=GHT_DATAWAREHOUSE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Contêiner da Sequência"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{41CFE14A-E78D-4B0B-A25D-C6E5BA78E6EF}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Contêiner da Sequência">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{FBA4D6E0-676C-499A-A424-DCA23C31672B}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Tarefa Fluxo de Dados"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="Cadproduto"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Declare @MaxData Varchar(6)
+  Select @MaxData = (Select Max(PeriodoMov) From GHT_STAGE.ST.EstoqueFilial) 
+
+;With CTE AS 
+(
+  Select Distinct 
+ -- F.CodEmpresa,
+  F.ProdNumPeca, 
+  F.FornecedorNome,
+  F.PeriodoMov
+  --F.QuantEstoque
+  From GHT_STAGE.ST.EstoqueFilial (NOLOCK) As F
+  Left Join GHT_DATAWAREHOUSE.DW.DimCadProduto (NOLOCK)  As P On (F.ProdNumPeca = P.ProdNumPeca And F.FornecedorNome = P.NomeFornecedor And F.PeriodoMov = P.PeriodoMov)
+  Left Join GHT_DATAWAREHOUSE.DW.DimMargemGerencial (NOLOCK) As M On (F.CodEmpresa = M.CodFilial And F.ProdNumPeca = M.Produto And F.FornecedorNome = M.Fornecedor And F.PeriodoMov = M.Periodo )
+  Where F.PeriodoMov = @MaxData And (F.QuantEstoque &gt; 0 OR M.FatuComImposto &gt; 0)
+)
+
+SELECT DISTINCT
+	  P.IDSKProduto
+      ,P.CodProd
+      ,P.ProdNumPeca
+      ,P.NomeFornecedor
+      ,P.ProdNome
+      --,'202304' As PeriodoMov
+	  ,P.PeriodoMov
+      ,P.ProdFamilia
+      ,P.ProdMarca
+      ,P.ProdLinha
+      ,P.ProdClassFiscal
+      ,P.ProdUnidMedida
+      ,P.ProdPeso
+      ,P.ProdStatusCor
+      ,P.ProdRep
+      ,P.ProdItemRoxo
+      ,P.ProdCustoSemImposto
+      ,P.ProdAtivo
+      ,P.ProdFrequencia
+      ,P.ProdLeadTime
+  FROM GHT_DATAWAREHOUSE.DW.DimCadProduto As P
+  Inner Join CTE As E On (P.ProdNumPeca = E.ProdNumPeca And P.NomeFornecedor = E.FornecedorNome And P.PeriodoMov = E.PeriodoMov)</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                      connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[IDSKProduto]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSKProduto]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[IDSKProduto]"
+                          name="IDSKProduto"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[CodProd]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[CodProd]"
+                          length="16"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[CodProd]"
+                          name="CodProd"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                          length="100"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                          name="ProdNumPeca"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[NomeFornecedor]"
+                          length="15"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]"
+                          name="NomeFornecedor"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdNome]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNome]"
+                          length="50"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdNome]"
+                          name="ProdNome"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          length="8"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFamilia]"
+                          length="5"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]"
+                          name="ProdFamilia"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdMarca]"
+                          length="5"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]"
+                          name="ProdMarca"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLinha]"
+                          length="3"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]"
+                          name="ProdLinha"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdClassFiscal]"
+                          length="10"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]"
+                          name="ProdClassFiscal"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdUnidMedida]"
+                          length="2"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]"
+                          name="ProdUnidMedida"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdPeso]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]"
+                          name="ProdPeso"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdStatusCor]"
+                          length="50"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]"
+                          name="ProdStatusCor"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdRep]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdRep]"
+                          length="1"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdRep]"
+                          name="ProdRep"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdItemRoxo]"
+                          length="1"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]"
+                          name="ProdItemRoxo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                          name="ProdCustoSemImposto"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdAtivo]"
+                          length="30"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]"
+                          name="ProdAtivo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFrequencia]"
+                          length="20"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]"
+                          name="ProdFrequencia"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLeadTime]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]"
+                          name="ProdLeadTime"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSKProduto]"
+                          dataType="i4"
+                          name="IDSKProduto" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[CodProd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="CodProd" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ProdNumPeca" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[NomeFornecedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="NomeFornecedor" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNome]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="ProdNome" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFamilia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="ProdFamilia" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdMarca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="ProdMarca" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLinha]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="ProdLinha" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdClassFiscal]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="ProdClassFiscal" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdUnidMedida]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="ProdUnidMedida" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdPeso]"
+                          dataType="r8"
+                          name="ProdPeso" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdStatusCor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="ProdStatusCor" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdRep]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ProdRep" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdItemRoxo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ProdItemRoxo" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                          dataType="r8"
+                          name="ProdCustoSemImposto" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdAtivo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="ProdAtivo" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFrequencia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="ProdFrequencia" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLeadTime]"
+                          dataType="i4"
+                          name="ProdLeadTime" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSKProduto]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSKProduto]"
+                          name="IDSKProduto" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[CodProd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[CodProd]"
+                          name="CodProd" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                          name="ProdNumPeca" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[NomeFornecedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[NomeFornecedor]"
+                          name="NomeFornecedor" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNome]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNome]"
+                          name="ProdNome" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFamilia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFamilia]"
+                          name="ProdFamilia" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdMarca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdMarca]"
+                          name="ProdMarca" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLinha]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLinha]"
+                          name="ProdLinha" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdClassFiscal]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdClassFiscal]"
+                          name="ProdClassFiscal" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdUnidMedida]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdUnidMedida]"
+                          name="ProdUnidMedida" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdPeso]"
+                          dataType="r8"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdPeso]"
+                          name="ProdPeso" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdStatusCor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdStatusCor]"
+                          name="ProdStatusCor" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdRep]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdRep]"
+                          name="ProdRep" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdItemRoxo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdItemRoxo]"
+                          name="ProdItemRoxo" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                          dataType="r8"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                          name="ProdCustoSemImposto" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdAtivo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdAtivo]"
+                          name="ProdAtivo" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFrequencia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFrequencia]"
+                          name="ProdFrequencia" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLeadTime]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLeadTime]"
+                          name="ProdLeadTime" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="DimCadproduto"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select * from DW.DimCadProdAcumulado</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                      connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[CodProd]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="16"
+                          cachedName="CodProd"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodProd]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[CodProd]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdNumPeca]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="ProdNumPeca"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[NomeFornecedor]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="15"
+                          cachedName="NomeFornecedor"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeFornecedor]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdNome]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="ProdNome"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNome]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdNome]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="PeriodoMov"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdFamilia]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5"
+                          cachedName="ProdFamilia"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFamilia]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdMarca]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5"
+                          cachedName="ProdMarca"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdMarca]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdLinha]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="ProdLinha"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLinha]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdClassFiscal]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="ProdClassFiscal"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdClassFiscal]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdUnidMedida]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="ProdUnidMedida"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdUnidMedida]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdPeso]"
+                          cachedDataType="r8"
+                          cachedName="ProdPeso"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdPeso]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdStatusCor]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="ProdStatusCor"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdStatusCor]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdRep]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="ProdRep"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdRep]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdRep]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdItemRoxo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="ProdItemRoxo"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdItemRoxo]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdCustoSemImposto]"
+                          cachedDataType="r8"
+                          cachedName="ProdCustoSemImposto"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdAtivo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="ProdAtivo"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdAtivo]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdFrequencia]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="ProdFrequencia"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFrequencia]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]" />
+                        <inputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].Columns[ProdLeadTime]"
+                          cachedDataType="i4"
+                          cachedName="ProdLeadTime"
+                          externalMetadataColumnId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLeadTime]"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSKProdAcum]"
+                          dataType="i4"
+                          name="IDSKProdAcum" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodProd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="16"
+                          name="CodProd" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ProdNumPeca" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeFornecedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="NomeFornecedor" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNome]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="ProdNome" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFamilia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="ProdFamilia" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdMarca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="ProdMarca" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLinha]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="ProdLinha" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdClassFiscal]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="ProdClassFiscal" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdUnidMedida]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="ProdUnidMedida" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdPeso]"
+                          dataType="r8"
+                          name="ProdPeso" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdStatusCor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="ProdStatusCor" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdRep]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ProdRep" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdItemRoxo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ProdItemRoxo" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                          dataType="r8"
+                          name="ProdCustoSemImposto" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdAtivo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="ProdAtivo" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFrequencia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="ProdFrequencia" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLeadTime]"
+                          dataType="i4"
+                          name="ProdLeadTime" />
+                        <externalMetadataColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFlag]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="ProdFlag" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados.Paths[Saída de Origem OLE DB]"
+                  endId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\fechamento lançamento de estoque Carag Invetario"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{6A58F3E1-D367-48AF-8F8B-A8BEAAEF2097}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="fechamento lançamento de estoque Carag Invetario">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{D46CB924-30B2-4E26-B317-4FD3846132D8}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Fechamento Inventario"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="DW DimInventario"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset">[DW].[DimInventario]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                      connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].Columns[CodEmpresa]"
+                          cachedDataType="i4"
+                          cachedName="CodEmpresa"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodEmpresa]"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]" />
+                        <inputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].Columns[ProdNumPeca]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="ProdNumPeca"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]" />
+                        <inputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="PeriodoMov"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                        <inputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].Columns[QuantEstoque]"
+                          cachedDataType="r8"
+                          cachedName="QuantEstoque"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[QuantEstoque]"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]" />
+                        <inputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].Columns[FornecedorNome]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="FornecedorNome"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[FornecedorNome]"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSKinventario]"
+                          dataType="i4"
+                          name="IDSKinventario" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodEmpresa]"
+                          dataType="i4"
+                          name="CodEmpresa" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ProdNumPeca" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[FornecedorNome]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="FornecedorNome" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[FilialNome]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="FilialNome" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB].ExternalColumns[QuantEstoque]"
+                          dataType="r8"
+                          name="QuantEstoque" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="Fechamento Mensal"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Declare @MaxData Varchar(6)
+  Select @MaxData = (Select Max(PeriodoMov) From GHT_STAGE.ST.EstoqueFilial) 
+
+  Select Distinct
+  F.CodEmpresa,
+  F.ProdNumPeca, 
+  F.FornecedorNome, 
+  F.PeriodoMov,
+  F.QuantEstoque
+  From GHT_STAGE.ST.EstoqueFilial (NOLOCK) As F
+  Left Join GHT_DATAWAREHOUSE.DW.DimCadProduto (NOLOCK)  As P On (F.ProdNumPeca = P.ProdNumPeca And F.FornecedorNome = P.NomeFornecedor And F.PeriodoMov = P.PeriodoMov)
+  Left Join GHT_DATAWAREHOUSE.DW.DimMargemGerencial (NOLOCK) As M On (F.CodEmpresa = M.CodFilial And F.ProdNumPeca = M.Produto And F.FornecedorNome = M.Fornecedor And F.PeriodoMov = M.Periodo )
+  Where F.PeriodoMov = @MaxData And (F.QuantEstoque &gt; 0 OR M.FatuComImposto &gt; 0)</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                      connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[CodEmpresa]"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]"
+                          name="CodEmpresa"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                          length="100"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                          name="ProdNumPeca"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[FornecedorNome]"
+                          length="50"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]"
+                          name="FornecedorNome"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          length="8"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[QuantEstoque]"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]"
+                          name="QuantEstoque"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[CodEmpresa]"
+                          dataType="i4"
+                          name="CodEmpresa" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ProdNumPeca" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[FornecedorNome]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="FornecedorNome" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB].ExternalColumns[QuantEstoque]"
+                          dataType="r8"
+                          name="QuantEstoque" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[CodEmpresa]"
+                          dataType="i4"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[CodEmpresa]"
+                          name="CodEmpresa" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                          name="ProdNumPeca" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[FornecedorNome]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[FornecedorNome]"
+                          name="FornecedorNome" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov" />
+                        <outputColumn
+                          refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[QuantEstoque]"
+                          dataType="r8"
+                          lineageId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Erro de Origem OLE DB].Columns[QuantEstoque]"
+                          name="QuantEstoque" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario.Paths[Saída de Origem OLE DB]"
+                  endId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição]"
+      DTS:CreationName=""
+      DTS:DTSID="{5A6B49CB-0AC6-4612-94DF-3E1607986BCA}"
+      DTS:From="Package\fechamento lançamento de estoque Carag Invetario"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição"
+      DTS:To="Package\Contêiner da Sequência" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Contêiner da Sequência\Tarefa Fluxo de Dados"
+          TopLeft="193,59" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="531,166"
+          Size="531,209"
+          Id="Package\Contêiner da Sequência"
+          TopLeft="636,87.75" />
+        <NodeLayout
+          Size="188,42"
+          Id="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario"
+          TopLeft="131,61" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="445,165"
+          Size="445,208"
+          Id="Package\fechamento lançamento de estoque Carag Invetario"
+          TopLeft="38,85" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição]"
+          TopLeft="483,190.625">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="153,0"
+              Start="0,0"
+              End="145.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="145.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Contêiner da Sequência\Tarefa Fluxo de Dados">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="152,42"
+          Id="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto"
+          TopLeft="389,81" />
+        <NodeLayout
+          Size="134,42"
+          Id="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto"
+          TopLeft="41,82" />
+        <EdgeLayout
+          Id="Package\Contêiner da Sequência\Tarefa Fluxo de Dados.Paths[Saída de Origem OLE DB]"
+          TopLeft="175,102.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="214,0"
+              Start="0,0"
+              End="206.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="206.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\Cadproduto">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Contêiner da Sequência\Tarefa Fluxo de Dados\DimCadproduto">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172,42"
+          Id="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal"
+          TopLeft="109,56" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario"
+          TopLeft="514,62" />
+        <EdgeLayout
+          Id="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario.Paths[Saída de Origem OLE DB]"
+          TopLeft="281,80">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="233,0"
+              Start="0,0"
+              End="225.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="225.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\DW DimInventario">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\fechamento lançamento de estoque Carag Invetario\Fechamento Inventario\Fechamento Mensal">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

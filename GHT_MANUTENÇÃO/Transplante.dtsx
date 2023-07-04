@@ -1,0 +1,3174 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/5/2023 10:45:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NOTSAOTEC008"
+  DTS:CreatorName="GHT\luiz.silva"
+  DTS:DTSID="{09403C62-2385-47B5-B881-6D17FC389298}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="Transplante"
+  DTS:PackageType="5"
+  DTS:VersionBuild="23"
+  DTS:VersionGUID="{789A0C04-1FEA-4841-8A6B-FABE0F10833D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.11\sql2016.DataMart_Comercial.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8A757F68-DA7F-4850-B997-073CC24ED0B1}"
+      DTS:ObjectName="10.10.1.11\sql2016.DataMart_Comercial.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.11\sql2016;User ID=sa;Initial Catalog=DataMart_Comercial;Provider=SQLNCLI11.1;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAycOnAo/BhkaQ3+EgEEgyDgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAACKtN0h8rqW10ll7GgenNiHAAAAAASAAACgAAAAEAAAAMJf7k3QJCpr1VoCe3fxLNAQAAAApuYE3mZ9YsYbdra1Hkr7mBQAAAD/dQ/KrR1WloE0zSTFfZXAVjS6/w</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CB18371F-A886-4E0A-880F-216D5AB4E127}"
+      DTS:ObjectName="10.10.1.28\sql2016.GHT_DATAWAREHOUSE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=GHT_DATAWAREHOUSE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_STAGE]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{42BE5B8B-BA2B-49D3-8BDD-9E3A3D9F31E8}"
+      DTS:ObjectName="10.10.1.28\sql2016.GHT_STAGE">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=GHT_STAGE;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DimCadProdutoAcumulado"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarefa Fluxo de Dados"
+      DTS:Disabled="True"
+      DTS:DTSID="{39734957-CE3D-4886-A62A-98EB7A5B2241}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimCadProdutoAcumulado"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DimCadProdutoAcumulado\Destino OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino OLE DB"
+              name="Destino OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT IDSKProdAcum
+      ,CodProd
+      ,ProdNumPeca
+      ,NomeFornecedor
+      ,ProdNome
+      ,PeriodoMov
+      ,ProdFamilia
+      ,ProdMarca
+      ,ProdLinha
+      ,ProdClassFiscal
+      ,ProdUnidMedida
+      ,ProdPeso
+      ,ProdStatusCor
+      ,ProdRep
+      ,ProdItemRoxo
+      ,ProdCustoSemImposto
+      ,ProdAtivo
+      ,ProdFrequencia
+      ,ProdLeadTime
+      ,ProdFlag
+  FROM DW.DimCadProdAcumulado</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
+                  errorOrTruncationOperation="Inserir"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de Destino OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[CodProd]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="16"
+                      cachedName="CodProd"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodProd]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[CodProd]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdNumPeca]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ProdNumPeca"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[NomeFornecedor]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="NomeFornecedor"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeFornecedor]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdNome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ProdNome"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNome]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNome]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="PeriodoMov"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdFamilia]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="ProdFamilia"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFamilia]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdMarca]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="ProdMarca"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdMarca]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdLinha]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="ProdLinha"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLinha]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdClassFiscal]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="ProdClassFiscal"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdClassFiscal]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdUnidMedida]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="ProdUnidMedida"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdUnidMedida]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdPeso]"
+                      cachedDataType="r8"
+                      cachedName="ProdPeso"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdPeso]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdStatusCor]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ProdStatusCor"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdStatusCor]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdRep]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ProdRep"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdRep]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdRep]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdItemRoxo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ProdItemRoxo"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdItemRoxo]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdCustoSemImposto]"
+                      cachedDataType="r8"
+                      cachedName="ProdCustoSemImposto"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdAtivo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="ProdAtivo"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdAtivo]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdFrequencia]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ProdFrequencia"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFrequencia]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]" />
+                    <inputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdLeadTime]"
+                      cachedDataType="i4"
+                      cachedName="ProdLeadTime"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLeadTime]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodProd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="16"
+                      name="CodProd" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProdNumPeca" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeFornecedor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="NomeFornecedor" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProdNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="PeriodoMov" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ProdFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdMarca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ProdMarca" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLinha]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="ProdLinha" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdClassFiscal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ProdClassFiscal" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdUnidMedida]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ProdUnidMedida" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdPeso]"
+                      dataType="r8"
+                      name="ProdPeso" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdStatusCor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProdStatusCor" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdRep]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ProdRep" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdItemRoxo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ProdItemRoxo" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                      dataType="r8"
+                      name="ProdCustoSemImposto" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdAtivo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="ProdAtivo" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFrequencia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ProdFrequencia" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLeadTime]"
+                      dataType="i4"
+                      name="ProdLeadTime" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="ProdFlag" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSKProdAcum]"
+                      dataType="i4"
+                      name="IDSKProdAcum" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Destino OLE DB"
+                  synchronousInputId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimCadProdutoAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimCadProdutoAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DimCadProdutoAcumulado\Origem"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+              description="Origem OLE DB"
+              name="Origem"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT DISTINCT
+	  P.IDSKProduto
+      ,P.CodProd
+      ,P.ProdNumPeca
+      ,P.NomeFornecedor
+      ,P.ProdNome
+      --,'' As PeriodoMov
+	  ,P.PeriodoMov
+      ,P.ProdFamilia
+      ,P.ProdMarca
+      ,P.ProdLinha
+      ,P.ProdClassFiscal
+      ,P.ProdUnidMedida
+      ,P.ProdPeso
+      ,P.ProdStatusCor
+      ,P.ProdRep
+      ,P.ProdItemRoxo
+      ,P.ProdCustoSemImposto
+      ,P.ProdAtivo
+      ,P.ProdFrequencia
+      ,P.ProdLeadTime
+  FROM GHT_DATAWAREHOUSE.DW.DimCadProduto As P
+Inner Join Ght_Datawarehouse.DW.DimTempoMes As T ON (P.PeriodoMov = T.DataPeriodo)
+Left join (Select Distinct ProdNumPeca, FornecedorNome From GHT_STAGE.ST.EstoqueFilial Where QuantEstoque &gt; 0 And PeriodoMov = '202304') As E ON (P.ProdNumPeca = E.ProdNumPeca And P.NomeFornecedor = E.FornecedorNome)
+Left Join (Select Distinct Produto, Fornecedor From GHT_DATAWAREHOUSE.DW.DimMargemGerencial Where Periodo = '202304')  As M ON (P.ProdNumPeca = M.Produto And P.NomeFornecedor = M.Fornecedor)
+Where P.PeriodoMov = '202305' And (E.ProdNumPeca is not null Or M.Produto Is Not Null)</property>
+                <property
+                  dataType="System.String"
+                  description="A variável que contém o comando SQL a ser executado."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCadProdutoAcumulado\Origem.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB]"
+                  name="Saída de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[IDSKProduto]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSKProduto]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[IDSKProduto]"
+                      name="IDSKProduto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[CodProd]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[CodProd]"
+                      length="16"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[CodProd]"
+                      name="CodProd"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                      length="100"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                      name="ProdNumPeca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[NomeFornecedor]"
+                      length="15"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]"
+                      name="NomeFornecedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNome]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNome]"
+                      length="50"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNome]"
+                      name="ProdNome"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                      length="8"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                      name="PeriodoMov"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFamilia]"
+                      length="5"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]"
+                      name="ProdFamilia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdMarca]"
+                      length="5"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]"
+                      name="ProdMarca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLinha]"
+                      length="3"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]"
+                      name="ProdLinha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdClassFiscal]"
+                      length="10"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]"
+                      name="ProdClassFiscal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdUnidMedida]"
+                      length="2"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]"
+                      name="ProdUnidMedida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdPeso]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]"
+                      name="ProdPeso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdStatusCor]"
+                      length="50"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]"
+                      name="ProdStatusCor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdRep]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdRep]"
+                      length="1"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdRep]"
+                      name="ProdRep"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdItemRoxo]"
+                      length="1"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]"
+                      name="ProdItemRoxo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                      name="ProdCustoSemImposto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdAtivo]"
+                      length="30"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]"
+                      name="ProdAtivo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFrequencia]"
+                      length="20"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]"
+                      name="ProdFrequencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLeadTime]"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]"
+                      name="ProdLeadTime"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSKProduto]"
+                      dataType="i4"
+                      name="IDSKProduto" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[CodProd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="16"
+                      name="CodProd" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProdNumPeca" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[NomeFornecedor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="NomeFornecedor" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProdNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="PeriodoMov" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ProdFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdMarca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ProdMarca" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLinha]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="ProdLinha" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdClassFiscal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ProdClassFiscal" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdUnidMedida]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ProdUnidMedida" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdPeso]"
+                      dataType="r8"
+                      name="ProdPeso" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdStatusCor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProdStatusCor" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdRep]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ProdRep" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdItemRoxo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ProdItemRoxo" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                      dataType="r8"
+                      name="ProdCustoSemImposto" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdAtivo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="ProdAtivo" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFrequencia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ProdFrequencia" />
+                    <externalMetadataColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLeadTime]"
+                      dataType="i4"
+                      name="ProdLeadTime" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB]"
+                  isErrorOut="true"
+                  name="Saída de Erro de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSKProduto]"
+                      dataType="i4"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSKProduto]"
+                      name="IDSKProduto" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[CodProd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="16"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[CodProd]"
+                      name="CodProd" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                      name="ProdNumPeca" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[NomeFornecedor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[NomeFornecedor]"
+                      name="NomeFornecedor" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNome]"
+                      name="ProdNome" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                      name="PeriodoMov" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFamilia]"
+                      name="ProdFamilia" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdMarca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdMarca]"
+                      name="ProdMarca" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLinha]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLinha]"
+                      name="ProdLinha" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdClassFiscal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdClassFiscal]"
+                      name="ProdClassFiscal" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdUnidMedida]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdUnidMedida]"
+                      name="ProdUnidMedida" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdPeso]"
+                      dataType="r8"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdPeso]"
+                      name="ProdPeso" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdStatusCor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdStatusCor]"
+                      name="ProdStatusCor" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdRep]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdRep]"
+                      name="ProdRep" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdItemRoxo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdItemRoxo]"
+                      name="ProdItemRoxo" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                      dataType="r8"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                      name="ProdCustoSemImposto" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdAtivo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdAtivo]"
+                      name="ProdAtivo" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFrequencia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFrequencia]"
+                      name="ProdFrequencia" />
+                    <outputColumn
+                      refId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLeadTime]"
+                      dataType="i4"
+                      lineageId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLeadTime]"
+                      name="ProdLeadTime" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DimCadProdutoAcumulado.Paths[Saída de Origem OLE DB]"
+              endId="Package\DimCadProdutoAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
+              name="Saída de Origem OLE DB"
+              startId="Package\DimCadProdutoAcumulado\Origem.Outputs[Saída de Origem OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DimInventario"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarefa Fluxo de Dados"
+      DTS:Disabled="True"
+      DTS:DTSID="{B7689C01-B088-4EC6-8A3A-8B289CDB2145}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimInventario"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DimInventario\Destino OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino OLE DB"
+              name="Destino OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset">[DW].[DimInventario]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimInventario\Destino OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
+                  errorOrTruncationOperation="Inserir"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de Destino OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[QuantEstoque]"
+                      cachedDataType="i4"
+                      cachedName="QuantEstoque"
+                      externalMetadataColumnId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[QuantEstoque]"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]" />
+                    <inputColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[CodEmpresa]"
+                      cachedDataType="i4"
+                      cachedName="CodEmpresa"
+                      externalMetadataColumnId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodEmpresa]"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]" />
+                    <inputColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdNumPeca]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ProdNumPeca"
+                      externalMetadataColumnId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]" />
+                    <inputColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[FornecedorNome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="FornecedorNome"
+                      externalMetadataColumnId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[FornecedorNome]"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]" />
+                    <inputColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="PeriodoMov"
+                      externalMetadataColumnId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodEmpresa]"
+                      dataType="i4"
+                      name="CodEmpresa" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProdNumPeca" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[FornecedorNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FornecedorNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[FilialNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="FilialNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="PeriodoMov" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[QuantEstoque]"
+                      dataType="r8"
+                      name="QuantEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSKinventario]"
+                      dataType="i4"
+                      name="IDSKinventario" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DimInventario\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Destino OLE DB"
+                  synchronousInputId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimInventario\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimInventario\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DimInventario\DimInventario"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+              description="Origem OLE DB"
+              name="DimInventario"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select CodEmpresa, ProdNumPeca, FornecedorNome, PeriodoMov, Sum(QuantEstoque) As QuantEstoque 
+from GHT_STAGE.ST.EstoqueFilial Where PeriodoMov = '202304' Group by CodEmpresa, ProdNumPeca, FornecedorNome, PeriodoMov</property>
+                <property
+                  dataType="System.String"
+                  description="A variável que contém o comando SQL a ser executado."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimInventario\DimInventario.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB]"
+                  name="Saída de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[QuantEstoque]"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]"
+                      name="QuantEstoque"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[CodEmpresa]"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]"
+                      name="CodEmpresa"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                      length="100"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                      name="ProdNumPeca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[FornecedorNome]"
+                      length="50"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]"
+                      name="FornecedorNome"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                      length="8"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                      name="PeriodoMov"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[QuantEstoque]"
+                      dataType="r8"
+                      name="QuantEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[CodEmpresa]"
+                      dataType="i4"
+                      name="CodEmpresa" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProdNumPeca" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[FornecedorNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FornecedorNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="PeriodoMov" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB]"
+                  isErrorOut="true"
+                  name="Saída de Erro de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[CodEmpresa]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[CodEmpresa]"
+                      name="CodEmpresa" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                      name="ProdNumPeca" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[FornecedorNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[FornecedorNome]"
+                      name="FornecedorNome" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                      name="PeriodoMov" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[QuantEstoque]"
+                      dataType="r8"
+                      lineageId="Package\DimInventario\DimInventario.Outputs[Saída de Erro de Origem OLE DB].Columns[QuantEstoque]"
+                      name="QuantEstoque" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DimInventario.Paths[Saída de Origem OLE DB]"
+              endId="Package\DimInventario\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
+              name="Saída de Origem OLE DB"
+              startId="Package\DimInventario\DimInventario.Outputs[Saída de Origem OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DimInventario Tranpl"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarefa Fluxo de Dados"
+      DTS:DTSID="{4b3cefd7-2770-4e13-9a04-1ce999abad26}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimInventario Tranpl"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DimInventario Tranpl\Destino OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino OLE DB"
+              name="Destino OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset">[ST].[EstoqueFilial]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT IDSKProdAcum
+      ,CodProd
+      ,ProdNumPeca
+      ,NomeFornecedor
+      ,ProdNome
+      ,PeriodoMov
+      ,ProdFamilia
+      ,ProdMarca
+      ,ProdLinha
+      ,ProdClassFiscal
+      ,ProdUnidMedida
+      ,ProdPeso
+      ,ProdStatusCor
+      ,ProdRep
+      ,ProdItemRoxo
+      ,ProdCustoSemImposto
+      ,ProdAtivo
+      ,ProdFrequencia
+      ,ProdLeadTime
+      ,ProdFlag
+  FROM DW.DimCadProdAcumulado</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimInventario Tranpl\Destino OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_STAGE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_STAGE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
+                  errorOrTruncationOperation="Inserir"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de Destino OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdNumPeca]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ProdNumPeca"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]" />
+                    <inputColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="PeriodoMov"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                    <inputColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[CodEmpresa]"
+                      cachedDataType="i4"
+                      cachedName="CodEmpresa"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodEmpresa]"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]" />
+                    <inputColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[FornecedorNome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="FornecedorNome"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[FornecedorNome]"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]" />
+                    <inputColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[QuantEstoque]"
+                      cachedDataType="r8"
+                      cachedName="QuantEstoque"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[QuantEstoque]"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProdNumPeca" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="PeriodoMov" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodEmpresa]"
+                      dataType="i4"
+                      name="CodEmpresa" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[FornecedorNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FornecedorNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[FilialNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="FilialNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[QuantEstoque]"
+                      dataType="r8"
+                      name="QuantEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[IdEstoque]"
+                      dataType="i4"
+                      name="IdEstoque" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[UF]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="UF" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DimInventario Tranpl\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Destino OLE DB"
+                  synchronousInputId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario Tranpl\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario Tranpl\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DimInventario Tranpl\Origem"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+              description="Origem OLE DB"
+              name="Origem"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset">[Dm].[DimInventario]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select * from GHT_DATAWAREHOUSE.DW.DimInventario Where PeriodoMov = '202304'</property>
+                <property
+                  dataType="System.String"
+                  description="A variável que contém o comando SQL a ser executado."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimInventario Tranpl\Origem.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB]"
+                  name="Saída de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                      length="100"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                      name="ProdNumPeca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                      length="8"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                      name="PeriodoMov"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[IDSKinventario]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSKinventario]"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[IDSKinventario]"
+                      name="IDSKinventario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[CodEmpresa]"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[CodEmpresa]"
+                      name="CodEmpresa"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[FornecedorNome]"
+                      length="50"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[FornecedorNome]"
+                      name="FornecedorNome"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[FilialNome]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[FilialNome]"
+                      length="15"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[FilialNome]"
+                      name="FilialNome"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[QuantEstoque]"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].Columns[QuantEstoque]"
+                      name="QuantEstoque"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProdNumPeca" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="PeriodoMov" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSKinventario]"
+                      dataType="i4"
+                      name="IDSKinventario" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[CodEmpresa]"
+                      dataType="i4"
+                      name="CodEmpresa" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[FornecedorNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FornecedorNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[FilialNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="FilialNome" />
+                    <externalMetadataColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB].ExternalColumns[QuantEstoque]"
+                      dataType="r8"
+                      name="QuantEstoque" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB]"
+                  isErrorOut="true"
+                  name="Saída de Erro de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                      name="ProdNumPeca" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                      name="PeriodoMov" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSKinventario]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSKinventario]"
+                      name="IDSKinventario" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[CodEmpresa]"
+                      dataType="i4"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[CodEmpresa]"
+                      name="CodEmpresa" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[FornecedorNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[FornecedorNome]"
+                      name="FornecedorNome" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[FilialNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[FilialNome]"
+                      name="FilialNome" />
+                    <outputColumn
+                      refId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[QuantEstoque]"
+                      dataType="r8"
+                      lineageId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Erro de Origem OLE DB].Columns[QuantEstoque]"
+                      name="QuantEstoque" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DimInventario Tranpl.Paths[Saída de Origem OLE DB]"
+              endId="Package\DimInventario Tranpl\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
+              name="Saída de Origem OLE DB"
+              startId="Package\DimInventario Tranpl\Origem.Outputs[Saída de Origem OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ProdAcumulado"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarefa Fluxo de Dados"
+      DTS:Disabled="True"
+      DTS:DTSID="{10C7C8BA-669F-4CB4-B828-CF5E72EF3C06}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ProdAcumulado"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\ProdAcumulado\Destino OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino OLE DB"
+              name="Destino OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset">[DW].[DimCadProdAcumulado]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ProdAcumulado\Destino OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_DATAWAREHOUSE]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
+                  errorOrTruncationOperation="Inserir"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de Destino OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[CodProd]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="16"
+                      cachedName="CodProd"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodProd]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[CodProd]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdNumPeca]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ProdNumPeca"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[NomeFornecedor]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="NomeFornecedor"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeFornecedor]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdNome]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ProdNome"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNome]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdNome]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="PeriodoMov"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdFamilia]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="ProdFamilia"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFamilia]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdMarca]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="ProdMarca"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdMarca]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdLinha]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="ProdLinha"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLinha]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdClassFiscal]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="ProdClassFiscal"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdClassFiscal]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdUnidMedida]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="ProdUnidMedida"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdUnidMedida]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdPeso]"
+                      cachedDataType="r8"
+                      cachedName="ProdPeso"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdPeso]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdStatusCor]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ProdStatusCor"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdStatusCor]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdRep]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ProdRep"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdRep]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdRep]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdItemRoxo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ProdItemRoxo"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdItemRoxo]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdCustoSemImposto]"
+                      cachedDataType="r8"
+                      cachedName="ProdCustoSemImposto"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdAtivo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="ProdAtivo"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdAtivo]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdFrequencia]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ProdFrequencia"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFrequencia]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]" />
+                    <inputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].Columns[ProdLeadTime]"
+                      cachedDataType="i4"
+                      cachedName="ProdLeadTime"
+                      externalMetadataColumnId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLeadTime]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSKProdAcum]"
+                      dataType="i4"
+                      name="IDSKProdAcum" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodProd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="16"
+                      name="CodProd" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProdNumPeca" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[NomeFornecedor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="NomeFornecedor" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProdNome" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="PeriodoMov" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ProdFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdMarca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ProdMarca" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLinha]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="ProdLinha" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdClassFiscal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ProdClassFiscal" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdUnidMedida]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ProdUnidMedida" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdPeso]"
+                      dataType="r8"
+                      name="ProdPeso" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdStatusCor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProdStatusCor" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdRep]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ProdRep" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdItemRoxo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ProdItemRoxo" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                      dataType="r8"
+                      name="ProdCustoSemImposto" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdAtivo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="ProdAtivo" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFrequencia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ProdFrequencia" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdLeadTime]"
+                      dataType="i4"
+                      name="ProdLeadTime" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB].ExternalColumns[ProdFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="ProdFlag" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ProdAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Saída de Erro de Destino OLE DB"
+                  synchronousInputId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ProdAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ProdAcumulado\Destino OLE DB.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ProdAcumulado\Origem OLE DB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+              description="Origem OLE DB"
+              name="Origem OLE DB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="O comando SQL a ser executado."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">with cte as(
+Select 
+F.IdEmpresa As CodEmpresa,
+P.Prodnumpeca , 
+P.NomeFornecedor,
+Movdata As PeriodoMov,
+--Sum(Faturamento) As Fatura,
+F.QtdEstoque
+from Comercial_ST.[Stage].[FatoEstoque] As F
+Left join  Comercial_St.Stage.Cadproduto As P ON ( F.Idproduto = P.CodProd And P.PeriodoMov = '202303')
+Where F.MovData = '202303' And (F.custoEstoque &gt; 0 Or F.Faturamento &gt; 0 )
+--Group by Movdata
+)
+
+select P.* 
+From DataMart_Comercial.dm.DImCadProduto As P
+Inner join Cte As E ON (P.ProdnumPeca = E.ProdNumPeca And P.NomeFornecedor = E.NomeFornecedor )
+where P.Periodomov = '202303'</property>
+                <property
+                  dataType="System.String"
+                  description="A variável que contém o comando SQL a ser executado."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica o modo usado para acessar o banco de dados."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ProdAcumulado\Origem OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[10.10.1.11\sql2016.DataMart_Comercial.sa]"
+                  connectionManagerRefId="Package.ConnectionManagers[10.10.1.11\sql2016.DataMart_Comercial.sa]"
+                  description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB]"
+                  name="Saída de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[CodProd]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[CodProd]"
+                      length="16"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[CodProd]"
+                      name="CodProd"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                      length="100"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdNumPeca]"
+                      name="ProdNumPeca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[NomeFornecedor]"
+                      length="15"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[NomeFornecedor]"
+                      name="NomeFornecedor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdNome]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNome]"
+                      length="50"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdNome]"
+                      name="ProdNome"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                      length="8"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                      name="PeriodoMov"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFamilia]"
+                      length="5"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdFamilia]"
+                      name="ProdFamilia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdMarca]"
+                      length="5"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdMarca]"
+                      name="ProdMarca"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLinha]"
+                      length="3"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdLinha]"
+                      name="ProdLinha"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdClassFiscal]"
+                      length="10"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdClassFiscal]"
+                      name="ProdClassFiscal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdUnidMedida]"
+                      length="2"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdUnidMedida]"
+                      name="ProdUnidMedida"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdPeso]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdPeso]"
+                      name="ProdPeso"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdStatusCor]"
+                      length="50"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdStatusCor]"
+                      name="ProdStatusCor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdRep]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdRep]"
+                      length="1"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdRep]"
+                      name="ProdRep"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdItemRoxo]"
+                      length="1"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdItemRoxo]"
+                      name="ProdItemRoxo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                      name="ProdCustoSemImposto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdAtivo]"
+                      length="30"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdAtivo]"
+                      name="ProdAtivo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFrequencia]"
+                      length="20"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdFrequencia]"
+                      name="ProdFrequencia"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLeadTime]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[ProdLeadTime]"
+                      name="ProdLeadTime"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[IDSKProduto]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSKProduto]"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[IDSKProduto]"
+                      name="IDSKProduto"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[CodFabricante]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[CodFabricante]"
+                      length="20"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[CodFabricante]"
+                      name="CodFabricante"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[DePonta]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[DePonta]"
+                      length="3"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[DePonta]"
+                      name="DePonta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[EstadoPonta]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[EstadoPonta]"
+                      length="2"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[EstadoPonta]"
+                      name="EstadoPonta"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[TipoContrato]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[TipoContrato]"
+                      length="100"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[TipoContrato]"
+                      name="TipoContrato"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[Homologacao]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversão"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[Homologacao]"
+                      length="1"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].Columns[Homologacao]"
+                      name="Homologacao"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[CodProd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="16"
+                      name="CodProd" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ProdNumPeca" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[NomeFornecedor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="NomeFornecedor" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProdNome" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="PeriodoMov" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ProdFamilia" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdMarca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ProdMarca" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLinha]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="ProdLinha" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdClassFiscal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ProdClassFiscal" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdUnidMedida]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ProdUnidMedida" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdPeso]"
+                      dataType="r8"
+                      name="ProdPeso" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdStatusCor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ProdStatusCor" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdRep]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ProdRep" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdItemRoxo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ProdItemRoxo" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdCustoSemImposto]"
+                      dataType="r8"
+                      name="ProdCustoSemImposto" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdAtivo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="ProdAtivo" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdFrequencia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ProdFrequencia" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[ProdLeadTime]"
+                      dataType="i4"
+                      name="ProdLeadTime" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[IDSKProduto]"
+                      dataType="i4"
+                      name="IDSKProduto" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[CodFabricante]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="CodFabricante" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[DePonta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="DePonta" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[EstadoPonta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="EstadoPonta" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[TipoContrato]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TipoContrato" />
+                    <externalMetadataColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB].ExternalColumns[Homologacao]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Homologacao" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB]"
+                  isErrorOut="true"
+                  name="Saída de Erro de Origem OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[CodProd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="16"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[CodProd]"
+                      name="CodProd" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNumPeca]"
+                      name="ProdNumPeca" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[NomeFornecedor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[NomeFornecedor]"
+                      name="NomeFornecedor" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNome]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdNome]"
+                      name="ProdNome" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                      name="PeriodoMov" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFamilia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFamilia]"
+                      name="ProdFamilia" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdMarca]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdMarca]"
+                      name="ProdMarca" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLinha]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLinha]"
+                      name="ProdLinha" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdClassFiscal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdClassFiscal]"
+                      name="ProdClassFiscal" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdUnidMedida]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdUnidMedida]"
+                      name="ProdUnidMedida" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdPeso]"
+                      dataType="r8"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdPeso]"
+                      name="ProdPeso" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdStatusCor]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdStatusCor]"
+                      name="ProdStatusCor" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdRep]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdRep]"
+                      name="ProdRep" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdItemRoxo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdItemRoxo]"
+                      name="ProdItemRoxo" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                      dataType="r8"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdCustoSemImposto]"
+                      name="ProdCustoSemImposto" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdAtivo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdAtivo]"
+                      name="ProdAtivo" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFrequencia]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdFrequencia]"
+                      name="ProdFrequencia" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLeadTime]"
+                      dataType="i4"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[ProdLeadTime]"
+                      name="ProdLeadTime" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSKProduto]"
+                      dataType="i4"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[IDSKProduto]"
+                      name="IDSKProduto" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[CodFabricante]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[CodFabricante]"
+                      name="CodFabricante" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[DePonta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[DePonta]"
+                      name="DePonta" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[EstadoPonta]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[EstadoPonta]"
+                      name="EstadoPonta" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[TipoContrato]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[TipoContrato]"
+                      name="TipoContrato" />
+                    <outputColumn
+                      refId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[Homologacao]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Erro de Origem OLE DB].Columns[Homologacao]"
+                      name="Homologacao" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\ProdAcumulado.Paths[Saída de Origem OLE DB]"
+              endId="Package\ProdAcumulado\Destino OLE DB.Inputs[Entrada de Destino OLE DB]"
+              name="Saída de Origem OLE DB"
+              startId="Package\ProdAcumulado\Origem OLE DB.Outputs[Saída de Origem OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="204,42"
+          Id="Package\DimCadProdutoAcumulado"
+          TopLeft="126,240" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\DimInventario"
+          TopLeft="145,108" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\DimInventario Tranpl"
+          TopLeft="418,234" />
+        <NodeLayout
+          Size="152,42"
+          Id="Package\ProdAcumulado"
+          TopLeft="413,110" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DimCadProdutoAcumulado">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="153,42"
+          Id="Package\DimCadProdutoAcumulado\Destino OLE DB"
+          TopLeft="427,58" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\DimCadProdutoAcumulado\Origem"
+          TopLeft="122,53" />
+        <EdgeLayout
+          Id="Package\DimCadProdutoAcumulado.Paths[Saída de Origem OLE DB]"
+          TopLeft="235,76.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="192,0"
+              Start="0,0"
+              End="184.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="184.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimCadProdutoAcumulado\Destino OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimCadProdutoAcumulado\Origem">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\DimInventario">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="146,42"
+          Id="Package\DimInventario\DimInventario"
+          TopLeft="139,101" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\DimInventario\Destino OLE DB"
+          TopLeft="509,108" />
+        <EdgeLayout
+          Id="Package\DimInventario.Paths[Saída de Origem OLE DB]"
+          TopLeft="285,125.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="224,0"
+              Start="0,0"
+              End="216.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="216.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimInventario\Destino OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimInventario\DimInventario">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\DimInventario Tranpl">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="113,42"
+          Id="Package\DimInventario Tranpl\Origem"
+          TopLeft="122,53" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\DimInventario Tranpl\Destino OLE DB"
+          TopLeft="427,58" />
+        <EdgeLayout
+          Id="Package\DimInventario Tranpl.Paths[Saída de Origem OLE DB]"
+          TopLeft="235,76.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="192,0"
+              Start="0,0"
+              End="184.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="184.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimInventario Tranpl\Destino OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimInventario Tranpl\Origem">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\ProdAcumulado">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="153,42"
+          Id="Package\ProdAcumulado\Destino OLE DB"
+          TopLeft="383,125" />
+        <NodeLayout
+          Size="152,42"
+          Id="Package\ProdAcumulado\Origem OLE DB"
+          TopLeft="69,124" />
+        <EdgeLayout
+          Id="Package\ProdAcumulado.Paths[Saída de Origem OLE DB]"
+          TopLeft="221,145.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="162,0"
+              Start="0,0"
+              End="154.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="154.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ProdAcumulado\Destino OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ProdAcumulado\Origem OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

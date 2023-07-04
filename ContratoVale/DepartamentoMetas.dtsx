@@ -1,0 +1,2959 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/31/2022 3:52:31 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NOTSAOTEC008"
+  DTS:CreatorName="GHT\luiz.silva"
+  DTS:DTSID="{A35CD20C-0F79-458D-85C1-01E258B8A7C5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="49"
+  DTS:VersionGUID="{CF1C918B-4ADC-4E4A-AF6F-69255972865C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_OLTP]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9A31B776-DA36-4968-A56B-859E9D0437AD}"
+      DTS:ObjectName="10.10.1.28\sql2016.GHT_OLTP">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=10.10.1.28\sql2016;Initial Catalog=GHT_OLTP;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\OLTP p STAGE Metas"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{5A010EE7-646E-4A6D-9DC8-48D9569AA425}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="OLTP p STAGE Metas">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{29BE8A2D-D841-4250-85FA-4CEEAE13A627}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="OLTP DepartamentoMeta"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="DepartamentoMeta"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT CodMeta
+      ,MetaDescr
+      ,SubMetaDescr
+      ,VendedorAtual
+      ,Representante
+      ,Mina
+      ,Periodo
+      ,Faturamento
+  FROM dbo.DepartamentoMeta</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_OLTP]"
+                      connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_OLTP]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[PERIODO]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="PERIODO"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[PERIODO]" />
+                        <inputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Faturamento]"
+                          cachedDataType="r8"
+                          cachedName="Faturamento"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Faturamento]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Faturamento]" />
+                        <inputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Meta]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="77"
+                          cachedName="Meta"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[MetaDescr]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Meta]" />
+                        <inputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[DescricaoMeta]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="33"
+                          cachedName="DescricaoMeta"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[SubMetaDescr]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[DescricaoMeta]" />
+                        <inputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Vendedor]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="40"
+                          cachedName="Vendedor"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[VendedorAtual]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Vendedor]" />
+                        <inputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[CodMeta]"
+                          cachedDataType="i4"
+                          cachedName="CodMeta"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodMeta]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[CodMeta]" />
+                        <inputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[CLIENTE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="CLIENTE"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Mina]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[CLIENTE]" />
+                        <inputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[REPRESENTANTE_INTERNO]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="REPRESENTANTE_INTERNO"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Representante]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[REPRESENTANTE_INTERNO]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodMeta]"
+                          dataType="i4"
+                          name="CodMeta" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="MetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="SubMetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[VendedorAtual]"
+                          codePage="1252"
+                          dataType="str"
+                          length="70"
+                          name="VendedorAtual" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Faturamento]"
+                          dataType="r8"
+                          name="Faturamento" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Mina" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          length="70"
+                          name="Representante" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="MargemGerencialGHT"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With Cubo As (
+SELECT
+GERENCIA AS GERENCIA,
+REGIONAL AS REGIONAL,
+FILIAL AS FILIAL,
+PERIODO AS PERIODO,
+ANO AS ANO,
+MES AS MES,
+DIA AS DIA,
+DATA AS DATA,
+PRODUTO AS PRODUTO,
+A.DESCRICAO AS [DESCRIÇÃO],
+FORNECEDOR AS FORNECEDOR,
+LTRIM(RTRIM(LINHA)) AS LINHA,
+LTRIM(RTRIM(FAMILIA)) AS [FAMÍLIA],
+LTRIM(RTRIM(MARCA)) AS MARCA,
+APELIDO AS CLIENTE,                --Adicionar Mina
+UF AS UF,
+MUNICIPIO AS CIDADE,
+V.VEN_NOME AS  VENDEDOR_ATUAL,
+V2.VEN_NOME AS VENDENDOR_SUBSTITUTO,
+B.DESCRICAO AS SEGMENTO_MERCADO,
+CAST(QTDEVEND AS VARCHAR) AS QTDE,
+SUM(QTDEVEND) AS QTDE2,
+SUM(FATCOMST)-SUM(DEVOLCOMST) AS FATURAMENTO,
+H.REP_RAZA AS REPRESENTANTE_INTERNO,  -- Adicionar Representante
+A.REP_EXTERNO AS REPRESENTANTE_EXTERNO,
+C.CLI_CGC AS CNPJ,
+GRUPO_INTRA AS GRUPO,
+COR,
+NUM_PEDIDOCLIENTE AS OC_VALE
+FROM MOVIMENTO..MARGEMGERENCIALGHT A (NOLOCK)
+LEFT JOIN DEPCATUMBI..CPACLIE C (NOLOCK) ON (A.COD_CLIENTE = C.CLI_CODI)
+LEFT JOIN DEPCATUMBI..SIAREPR H (NOLOCK) ON (C.CLI_REPR = H.REP_CODI)
+LEFT JOIN DEPCATUMBI..SEGMENTOMERCADO B (NOLOCK) ON (C.CLI_SEGMENTO = B.SEGMENTO_ID)
+
+LEFT JOIN (SELECT VEN_CODI, VEN_NOME
+				FROM MOVIMENTO..SIAVEND (NOLOCK)
+					WHERE EMPRESA = 'HIDRAU'
+			) V ON (V.VEN_CODI = C.CLI_VEND)
+
+LEFT JOIN (SELECT VEN_CODI, VEN_NOME
+				FROM MOVIMENTO..SIAVEND (NOLOCK)
+					WHERE EMPRESA = 'HIDRAU'
+			) V2 ON (V2.VEN_CODI = C.CLI_VEND_SUB)
+
+WHERE ANO &gt;= '2022' And V.VEN_NOME IN('GUILHERME DORIA SANTOS','LUCAS ALEXANDRE','LUCIANO GLAYDSON LIMA','MATHEUS PEREIRA ROSA')
+GROUP BY ANO, MES, PERIODO, PRODUTO, A.DESCRICAO, FORNECEDOR, LTRIM(RTRIM(LINHA)), FAMILIA, MARCA,GERENCIA, H.REP_RAZA, V.VEN_NOME, V2.VEN_NOME,
+APELIDO, UF, VENDEDOR_CADASTRO, FILIAL, MUNICIPIO, B.DESCRICAO, DIA, QTDEVEND, DATA, REGIONAL, C.CLI_CGC, GRUPO_INTRA, COR, NUM_PEDIDOCLIENTE,
+A.REP_EXTERNO)
+
+--Meta1
+Select  
+	1 As CodMeta,
+	'META GLOBAL' As Meta,
+    '2022 Meta Global' As DescricaoMeta,
+	'GeralGht' As Vendedor, 
+	'GeralGht' As REPRESENTANTE_INTERNO,
+	'GeralGht' As CLIENTE,
+	PERIODO,
+	Sum(FatComSt) As Faturamento
+
+From MOVIMENTO..MARGEMGERENCIALGHT
+Where PERIODO &gt;= '202209' And CATEGORIA = 'Faturamento'
+Group by PERIODO
+UNION
+
+--Meta2
+Select 
+	2 As CodMeta,
+	'PEÇA + ILUMINAÇÃO SISTEMAS  (SEM EGP, SISTEMAS, ACESSÓRIOS DE OFICINA E BIZA)' As Meta,
+    '2022 Vale mineração MG/PA - Peças' As DescricaoMeta,
+	M.Vendedor_Atual As Vendedor, 
+	M.REPRESENTANTE_INTERNO,
+	M.CLIENTE,
+	M.PERIODO,
+	Sum(M.FATURAMENTO) As Faturamento
+From Cubo As M
+Where M.GERENCIA = 'VALE MINERAÇÃO' And M.GRUPO IN ('CAMINHÕES LEVES','',  'SERVIÇOS') And M.FAMÍLIA Not IN('ACESSORIOS OFICINA', 'INOVACAO', 'IMPULSOR', 'INOVACAO BIZA')
+And M.MARCA Not IN ('BIZA', 'BIZA PREMIUM', 'BIZA START','BIZA STD')
+Group by M.PERIODO, M.VENDEDOR_ATUAL,  M.CLIENTE, M.REPRESENTANTE_INTERNO
+
+UNION
+Select 
+	2 As CodMeta,
+	'PEÇA + ILUMINAÇÃO SISTEMAS  (SEM EGP, SISTEMAS, ACESSÓRIOS DE OFICINA E BIZA)' As Meta,
+    '2022 Vale mineração MG/PA - Peças' As DescricaoMeta,
+	M.Vendedor_Atual As Vendedor, 
+	M.REPRESENTANTE_INTERNO,
+	M.CLIENTE,
+	M.PERIODO,
+	Sum(M.FATURAMENTO) As Faturamento
+From Cubo As M
+Where M.GERENCIA = 'VALE MINERAÇÃO' And M.GRUPO IN ('CAMINHÕES LEVES','',  'SERVIÇOS','SISTEMAS') And M.FAMÍLIA = 'ILUMINACAO'
+Group by M.PERIODO, M.VENDEDOR_ATUAL,  M.CLIENTE, M.REPRESENTANTE_INTERNO
+UNION
+--Meta3
+Select 
+	3 As CodMeta,
+	'BIZA + INOVAÇÃO BIZA (SEM ACESSORIOS DE OFICINA, INOVAÇÃO, EGP E SISTEMAS)' As Meta,
+    '2022 Vale mineração MG/PA - BIZA' As DescricaoMeta,
+	M.Vendedor_Atual As Vendedor, 
+	M.REPRESENTANTE_INTERNO,
+	M.CLIENTE,
+	M.PERIODO,
+	Sum(M.FATURAMENTO) As Faturamento
+From Cubo As M
+Where M.GERENCIA = 'VALE MINERAÇÃO' And M.GRUPO IN ('CAMINHÕES LEVES','',  'SERVIÇOS') And M.FAMÍLIA Not IN('ACESSORIOS OFICINA', 'INOVACAO', 'IMPULSOR', 'INOVACAO BIZA')
+And M.MARCA IN ('BIZA', 'BIZA PREMIUM', 'BIZA START','BIZA STD')
+Group by M.PERIODO, M.VENDEDOR_ATUAL,  M.CLIENTE, M.REPRESENTANTE_INTERNO
+UNION
+--Meta4
+Select 
+	4 As CodMeta,
+	'ACESSÓRIOS DE OFICINA + INOVACAO (SEM BIZA, EGP E SISTEMAS)' As Meta,
+    '2022 - Vale min - novos negocios' As DescricaoMeta,
+	M.Vendedor_Atual As Vendedor, 
+	M.REPRESENTANTE_INTERNO,
+	M.CLIENTE,
+	M.PERIODO,
+	Sum(M.FATURAMENTO) As Faturamento
+From Cubo As M
+Where M.GERENCIA = 'VALE MINERAÇÃO' And M.FAMÍLIA IN('ACESSORIOS OFICINA', 'INOVACAO', 'IMPULSOR', 'INOVACAO BIZA')
+Group by M.PERIODO, M.VENDEDOR_ATUAL,  M.CLIENTE, M.REPRESENTANTE_INTERNO</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Connections[OleDbConnection]"
+                      connectionManagerID="{026C6138-E7E2-44FA-8076-15F606A9BFA0}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[10.10.1.11_sql2016.MOVIMENTO.sa]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Meta]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[Meta]"
+                          length="77"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Meta]"
+                          name="Meta"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[DescricaoMeta]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[DescricaoMeta]"
+                          length="33"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[DescricaoMeta]"
+                          name="DescricaoMeta"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Vendedor]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[Vendedor]"
+                          length="40"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Vendedor]"
+                          name="Vendedor"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[PERIODO]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[PERIODO]"
+                          length="6"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[PERIODO]"
+                          name="PERIODO"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Faturamento]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[Faturamento]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[Faturamento]"
+                          name="Faturamento"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[CodMeta]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[CodMeta]"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[CodMeta]"
+                          name="CodMeta"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[CLIENTE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[CLIENTE]"
+                          length="20"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[CLIENTE]"
+                          name="CLIENTE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[REPRESENTANTE_INTERNO]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[REPRESENTANTE_INTERNO]"
+                          length="50"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].Columns[REPRESENTANTE_INTERNO]"
+                          name="REPRESENTANTE_INTERNO"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[Meta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="77"
+                          name="Meta" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[DescricaoMeta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="33"
+                          name="DescricaoMeta" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[Vendedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="40"
+                          name="Vendedor" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[PERIODO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="PERIODO" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[Faturamento]"
+                          dataType="r8"
+                          name="Faturamento" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[CodMeta]"
+                          dataType="i4"
+                          name="CodMeta" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[CLIENTE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="CLIENTE" />
+                        <externalMetadataColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB].ExternalColumns[REPRESENTANTE_INTERNO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="REPRESENTANTE_INTERNO" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[Meta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="77"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[Meta]"
+                          name="Meta" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[DescricaoMeta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="33"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[DescricaoMeta]"
+                          name="DescricaoMeta" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[Vendedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="40"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[Vendedor]"
+                          name="Vendedor" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[PERIODO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[PERIODO]"
+                          name="PERIODO" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[Faturamento]"
+                          dataType="r8"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[Faturamento]"
+                          name="Faturamento" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[CodMeta]"
+                          dataType="i4"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[CodMeta]"
+                          name="CodMeta" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[CLIENTE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[CLIENTE]"
+                          name="CLIENTE" />
+                        <outputColumn
+                          refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[REPRESENTANTE_INTERNO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Erro de Origem OLE DB].Columns[REPRESENTANTE_INTERNO]"
+                          name="REPRESENTANTE_INTERNO" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta.Paths[Saída de Origem OLE DB]"
+                  endId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\OLTP p STAGE Metas\Truncate Table OLTP DepartamentoMetas"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{79E04FF7-59A5-4620-8624-5B871C04CDE9}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Table OLTP DepartamentoMetas"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9A31B776-DA36-4968-A56B-859E9D0437AD}"
+              SQLTask:SqlStatementSource="truncate table DepartamentoMeta" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\OLTP p STAGE Metas.PrecedenceConstraints[Restrição]"
+          DTS:CreationName=""
+          DTS:DTSID="{6CB6A548-5CCD-47BF-8872-1E8984C368AC}"
+          DTS:From="Package\OLTP p STAGE Metas\Truncate Table OLTP DepartamentoMetas"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição"
+          DTS:To="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\STAGE p DW Metas"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{0f658bdd-0b1f-4aac-96e8-df2716ad6de8}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="STAGE p DW Metas">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\STAGE p DW Metas\Carga MovMetaVale"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{e79d42f1-450f-4062-a3b1-7cd0247bc76c}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Carga MovMetaVale"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="DW DimMovMetaVale"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT IDSKMeta
+      ,CodMeta
+      ,DescrMeta
+      ,Colaboradores
+      ,Mina
+      ,Periodo
+      ,DataMov
+      ,FaturamentoMeta
+      ,IdFaixaMeta
+  FROM DW.DimMovMetaVale</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Connections[OleDbConnection]"
+                      connectionManagerID="{1C8F668C-88D5-4AFB-983C-81E2775EF957}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Dw]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].Columns[DescrMeta]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="DescrMeta"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DescrMeta]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[DescrMeta]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].Columns[Mina]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Mina"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Mina]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Mina]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].Columns[DataPeriodo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="DataPeriodo"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[DataPeriodo]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].Columns[Periodo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="Periodo"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DataMov]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Periodo]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].Columns[Faturamento]"
+                          cachedDataType="r8"
+                          cachedName="Faturamento"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaturamentoMeta]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Faturamento]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].Columns[Colaborador]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Colaborador"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Colaboradores]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Colaborador]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].Columns[CodFaixa]"
+                          cachedDataType="i4"
+                          cachedName="CodFaixa"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[IdFaixaMeta]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[CodFaixa]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].Columns[CodMeta]"
+                          cachedDataType="i4"
+                          cachedName="CodMeta"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodMeta]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[CodMeta]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DescrMeta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="DescrMeta" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Mina" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Colaboradores]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Colaboradores" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DataMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="DataMov" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaturamentoMeta]"
+                          dataType="r8"
+                          name="FaturamentoMeta" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSKMeta]"
+                          dataType="i4"
+                          name="IDSKMeta" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[IdFaixaMeta]"
+                          dataType="i4"
+                          name="IdFaixaMeta" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[CodMeta]"
+                          dataType="i4"
+                          name="CodMeta" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="OLTP MovMetaVale"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+       M.CodMeta
+      ,M.DescrMeta
+      ,M.Colaborador
+      ,M.Mina
+      ,M.Periodo
+      ,T.DataPeriodo
+      ,M.Faturamento
+      ,M.CodFaixa
+  FROM dbo.MovMetaVale (NOLOCK) As M
+  Inner Join GHT_DATAWAREHOUSE.DW.DimTempoMes As T ON (M.Periodo = T.MesBarra03)</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_OLTP]"
+                      connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_OLTP]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[DescrMeta]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[DescrMeta]"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[DescrMeta]"
+                          name="DescrMeta"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          length="8"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[DataPeriodo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[DataPeriodo]"
+                          length="6"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[DataPeriodo]"
+                          name="DataPeriodo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Mina]"
+                          length="50"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Mina]"
+                          name="Mina"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Faturamento]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Faturamento]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Faturamento]"
+                          name="Faturamento"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Colaborador]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Colaborador]"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[Colaborador]"
+                          name="Colaborador"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[CodFaixa]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[CodFaixa]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[CodFaixa]"
+                          name="CodFaixa"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[CodMeta]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[CodMeta]"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].Columns[CodMeta]"
+                          name="CodMeta"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[DescrMeta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="DescrMeta" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[DataPeriodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="DataPeriodo" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Mina" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Faturamento]"
+                          dataType="r8"
+                          name="Faturamento" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[Colaborador]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Colaborador" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[CodFaixa]"
+                          dataType="i4"
+                          name="CodFaixa" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB].ExternalColumns[CodMeta]"
+                          dataType="i4"
+                          name="CodMeta" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[DescrMeta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[DescrMeta]"
+                          name="DescrMeta" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[DataPeriodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[DataPeriodo]"
+                          name="DataPeriodo" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Mina]"
+                          name="Mina" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Faturamento]"
+                          dataType="r8"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Faturamento]"
+                          name="Faturamento" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Colaborador]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[Colaborador]"
+                          name="Colaborador" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[CodFaixa]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[CodFaixa]"
+                          name="CodFaixa" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[CodMeta]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Erro de Origem OLE DB].Columns[CodMeta]"
+                          name="CodMeta" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\STAGE p DW Metas\Carga MovMetaVale.Paths[Saída de Origem OLE DB]"
+                  endId="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\STAGE p DW Metas\DepartamentoMeta"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{E3E3DE9D-2B83-4A51-B93D-5B15420E03D5}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DepartamentoMeta"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="OLTP DepartamentoMeta"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+       M.MetaDescr
+      ,M.SubMetaDescr
+      ,'Global' As Categoria 
+      ,M.Representante
+      ,M.Mina
+      ,M.Periodo
+       ,Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4)) As PeriodoMov
+      ,Sum(Faturamento) As Faturamento
+  FROM DepartamentoMeta As M (NOLOCK)
+  Where M.MetaDescr = 'META GLOBAL'
+  Group by M.MetaDescr, M.SubMetaDescr, M.Representante, M.Mina, M.Periodo, Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4))
+Union 
+SELECT 
+       M.MetaDescr
+      ,M.SubMetaDescr
+      ,'Representante' As Categoria 
+      ,M.Representante
+      ,M.Mina
+      ,M.Periodo
+       ,Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4)) As PeriodoMov
+      ,Sum(Faturamento) As Faturamento
+  FROM DepartamentoMeta As M (NOLOCK)
+  inner Join DescrMetaVendedor As V (NOLOCK) ON (M.Representante = V.Representante) 
+  Group by M.MetaDescr, M.SubMetaDescr, M.Representante, M.Mina, M.Periodo, Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4))
+UNION
+  SELECT 
+       M.MetaDescr
+      ,M.SubMetaDescr
+      ,'Vendedor' As Categoria 
+      ,M.VendedorAtual As Representante
+      ,M.Mina
+      ,M.Periodo
+       ,Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4)) As PeriodoMov
+      ,Sum(Faturamento) As Faturamento
+  FROM DepartamentoMeta As M (NOLOCK)
+  Inner Join DescrMetaVendedor As V (NOLOCK) ON (M.Representante = V.Representante)
+  Group by  M.MetaDescr, M.SubMetaDescr, M.VendedorAtual, M.Mina, M.Periodo, Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4))
+UNION 
+    SELECT 
+       M.MetaDescr
+      ,M.SubMetaDescr
+      ,'Supervisão' As Categoria 
+       ,V.Supervisao As Representante
+      ,M.Mina
+      ,M.Periodo
+       ,Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4)) As PeriodoMov
+      ,Sum(Faturamento) As Faturamento
+  FROM DepartamentoMeta As M (NOLOCK)
+  Inner Join DescrMetaVendedor As V (NOLOCK) ON (M.Representante = V.Representante)
+  Group by  M.MetaDescr, M.SubMetaDescr, V.Supervisao, M.Mina, M.Periodo, Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4))
+UNION
+    SELECT 
+       M.MetaDescr
+      ,M.SubMetaDescr
+       ,'Gerencial' As Categoria 
+       ,V.Gerencial As Representante
+      ,M.Mina
+      ,M.Periodo
+      ,Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4)) As PeriodoMov
+      ,Sum(Faturamento) As Faturamento
+  FROM DepartamentoMeta As M (NOLOCK)
+  Inner Join DescrMetaVendedor As V (NOLOCK) ON (M.Representante = V.Representante)
+  Group by  M.MetaDescr, M.SubMetaDescr, V.Gerencial, M.Mina, M.Periodo, Concat(Right(M.Periodo,2),'/',Left(M.Periodo,4))</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_OLTP]"
+                      connectionManagerRefId="Package.ConnectionManagers[10.10.1.28\sql2016.GHT_OLTP]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[MetaDescr]"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[MetaDescr]"
+                          name="MetaDescr"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[SubMetaDescr]"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[SubMetaDescr]"
+                          name="SubMetaDescr"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          length="6"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Faturamento]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Faturamento]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Faturamento]"
+                          name="Faturamento"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          length="7"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Representante]"
+                          length="70"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Representante]"
+                          name="Representante"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Mina]"
+                          length="50"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Mina]"
+                          name="Mina"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Categoria]"
+                          length="13"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Categoria]"
+                          name="Categoria"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="MetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="SubMetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Faturamento]"
+                          dataType="r8"
+                          name="Faturamento" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          length="70"
+                          name="Representante" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Mina" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="13"
+                          name="Categoria" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[MetaDescr]"
+                          name="MetaDescr" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[SubMetaDescr]"
+                          name="SubMetaDescr" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Faturamento]"
+                          dataType="r8"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Faturamento]"
+                          name="Faturamento" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          length="70"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Representante]"
+                          name="Representante" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Mina]"
+                          name="Mina" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="13"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Categoria]"
+                          name="Categoria" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="ST DepartamentoMeta"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT MetaDescr
+      ,SubMetaDescr
+      ,Categoria
+      ,Representante
+      ,Mina
+      ,Periodo
+      ,PeriodoMov
+      ,FaturamentoGht
+  FROM ST.DepartamentoMeta</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Connections[OleDbConnection]"
+                      connectionManagerID="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Stage]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[MetaDescr]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="MetaDescr"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[MetaDescr]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[MetaDescr]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[SubMetaDescr]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="SubMetaDescr"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[SubMetaDescr]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[SubMetaDescr]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Periodo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="Periodo"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Periodo]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="7"
+                          cachedName="PeriodoMov"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Representante]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="70"
+                          cachedName="Representante"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Representante]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Representante]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Mina]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Mina"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Mina]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Mina]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Faturamento]"
+                          cachedDataType="r8"
+                          cachedName="Faturamento"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaturamentoGht]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Faturamento]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Categoria]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="13"
+                          cachedName="Categoria"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Categoria]"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB].Columns[Categoria]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="MetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="SubMetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          length="80"
+                          name="Representante" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Mina" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaturamentoGht]"
+                          dataType="r8"
+                          name="FaturamentoGht" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="Categoria" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\STAGE p DW Metas\DepartamentoMeta.Paths[Saída de Origem OLE DB]"
+                  endId="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{1C1C234F-2CCF-47A3-A473-D9904AB6B27F}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DW DimDepartamentoMeta"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="DW DimDepartamentoMeta"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT IDSKMeta
+      ,MetaDescr
+      ,SubMetaDescr
+      ,Categoria
+      ,Representante
+      ,Mina
+      ,Periodo
+      ,PeriodoMov
+      ,FaturamentoGht
+      ,FaturamentoMeta
+      ,FaixaMeta
+  FROM DW.DimDepartamentoMeta</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Connections[OleDbConnection]"
+                      connectionManagerID="{1C8F668C-88D5-4AFB-983C-81E2775EF957}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Dw]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[MetaDescr]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="MetaDescr"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[MetaDescr]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[MetaDescr]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[SubMetaDescr]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="SubMetaDescr"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[SubMetaDescr]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[SubMetaDescr]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Categoria]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="Categoria"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Categoria]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Categoria]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Representante]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="80"
+                          cachedName="Representante"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Representante]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Representante]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Mina]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Mina"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Mina]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Mina]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[Periodo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="Periodo"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Periodo]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[PeriodoMov]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="7"
+                          cachedName="PeriodoMov"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[FaturamentoGht]"
+                          cachedDataType="r8"
+                          cachedName="FaturamentoGht"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaturamentoGht]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaturamentoGht]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[FaturamentoMeta]"
+                          cachedDataType="r8"
+                          cachedName="FaturamentoMeta"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaturamentoMeta]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaturamentoMeta]" />
+                        <inputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].Columns[FaixaMeta]"
+                          cachedDataType="i4"
+                          cachedName="FaixaMeta"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaixaMeta]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaixaMeta]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[IDSKMeta]"
+                          dataType="i4"
+                          name="IDSKMeta" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="MetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="SubMetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="Categoria" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          length="80"
+                          name="Representante" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Mina" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaturamentoGht]"
+                          dataType="r8"
+                          name="FaturamentoGht" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaixaMeta]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="FaixaMeta" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB].ExternalColumns[FaturamentoMeta]"
+                          dataType="r8"
+                          name="FaturamentoMeta" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="ST DepartamementoMeta"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With Cte As 
+ (
+ Select 
+		D.DescrMeta As MetaDescr,
+		D.Colaboradores As Representante,
+		D.Mina,
+		D.Periodo,
+		D.IdFaixaMeta As Faixa		
+	From DW.DimMovMetaVale As D
+	Inner Join GHT_STAGE.ST.DepartamentoMeta As M on (D.DescrMeta = M.MetaDescr And D.Colaboradores = M.Representante And D.Mina = M.Mina And D.Periodo = M.Periodo And M.FaturamentoGht &gt;= D.FaturamentoMeta)	
+)
+SELECT Distinct
+       M.MetaDescr
+      ,M.SubMetaDescr
+      ,M.Categoria
+      ,M.Representante
+      ,M.Mina
+      ,M.Periodo
+      ,M.PeriodoMov
+      ,M.FaturamentoGht
+	  ,V1.FaturamentoMeta
+	  ,IsNull(V.Fx,0) As FaixaMeta
+	 -- ,IIF(And(M.MetaDescr = V.MetaDescr , M.Representante = V.Representante And M.Mina = V.Mina And M.Periodo = V.Periodo , 'Faixa 0', 'Sem Meta') As Verifica
+  From GHT_STAGE.ST.DepartamentoMeta As M (NOLOCK)
+  left Join (
+	Select MetaDescr, Representante, Mina, Periodo,  Max(Faixa) As Fx From Cte 	
+  Group by MetaDescr, Representante, Mina, Periodo
+  )
+ As V On (M.MetaDescr = V.MetaDescr And M.Representante = V.Representante And M.Mina = V.Mina And M.Periodo = V.Periodo)  
+  Left Join DW.DimMovMetaVale As V1 On (M.MetaDescr = V1.DescrMeta And M.Representante = V1.Colaboradores And M.Mina = V1.Mina And M.Periodo = V1.Periodo And V.Fx = V1.IdFaixaMeta) 
+  Inner Join DW.DimMovMetaVale As V2 On (M.MetaDescr = V2.DescrMeta And M.Representante = V2.Colaboradores And M.Mina = V2.Mina And M.Periodo = V2.Periodo)</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Connections[OleDbConnection]"
+                      connectionManagerID="{1C8F668C-88D5-4AFB-983C-81E2775EF957}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Dw]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[MetaDescr]"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[MetaDescr]"
+                          name="MetaDescr"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[SubMetaDescr]"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[SubMetaDescr]"
+                          name="SubMetaDescr"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Categoria]"
+                          length="30"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Categoria]"
+                          name="Categoria"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Representante]"
+                          length="80"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Representante]"
+                          name="Representante"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Mina]"
+                          length="50"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Mina]"
+                          name="Mina"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          length="6"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          length="7"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaturamentoGht]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[FaturamentoGht]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaturamentoGht]"
+                          name="FaturamentoGht"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaturamentoMeta]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[FaturamentoMeta]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaturamentoMeta]"
+                          name="FaturamentoMeta"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaixaMeta]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[FaixaMeta]"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].Columns[FaixaMeta]"
+                          name="FaixaMeta"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="MetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="SubMetaDescr" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="Categoria" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          length="80"
+                          name="Representante" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Mina" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Periodo" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="PeriodoMov" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[FaturamentoGht]"
+                          dataType="r8"
+                          name="FaturamentoGht" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[FaturamentoMeta]"
+                          dataType="r8"
+                          name="FaturamentoMeta" />
+                        <externalMetadataColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB].ExternalColumns[FaixaMeta]"
+                          dataType="i4"
+                          name="FaixaMeta" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[MetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[MetaDescr]"
+                          name="MetaDescr" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[SubMetaDescr]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[SubMetaDescr]"
+                          name="SubMetaDescr" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Categoria]"
+                          name="Categoria" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Representante]"
+                          codePage="1252"
+                          dataType="str"
+                          length="80"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Representante]"
+                          name="Representante" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Mina]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Mina]"
+                          name="Mina" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[Periodo]"
+                          name="Periodo" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[PeriodoMov]"
+                          name="PeriodoMov" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[FaturamentoGht]"
+                          dataType="r8"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[FaturamentoGht]"
+                          name="FaturamentoGht" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[FaturamentoMeta]"
+                          dataType="r8"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[FaturamentoMeta]"
+                          name="FaturamentoMeta" />
+                        <outputColumn
+                          refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[FaixaMeta]"
+                          dataType="i4"
+                          lineageId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Erro de Origem OLE DB].Columns[FaixaMeta]"
+                          name="FaixaMeta" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\STAGE p DW Metas\DW DimDepartamentoMeta.Paths[Saída de Origem OLE DB]"
+                  endId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\STAGE p DW Metas\Truncate DW DimDepartamentoMeta"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{18B81F9A-0FA1-4A2F-9FA4-152AFE441681}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate DW DimDepartamentoMeta"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{1C8F668C-88D5-4AFB-983C-81E2775EF957}"
+              SQLTask:SqlStatementSource="truncate table Dw.DimDepartamentoMeta" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\STAGE p DW Metas\Truncate MovMetaVale"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{b469097d-b948-43c6-acb3-036bce335a78}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate MovMetaVale"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{1C8F668C-88D5-4AFB-983C-81E2775EF957}"
+              SQLTask:SqlStatementSource="Truncate Table DW.DimMovMetaVale" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\STAGE p DW Metas\Truncate Table ST DepartamentoMetas"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{ac9ea3dd-e03e-47be-b3f6-4d8f5ce83135}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Table ST DepartamentoMetas"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}"
+              SQLTask:SqlStatementSource="truncate table St.DepartamentoMeta" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição]"
+          DTS:CreationName=""
+          DTS:DTSID="{687FCE83-9C24-42E4-894C-C83F469AF6D2}"
+          DTS:From="Package\STAGE p DW Metas\Truncate Table ST DepartamentoMetas"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição"
+          DTS:To="Package\STAGE p DW Metas\DepartamentoMeta" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{8A2D9F4E-0751-42A1-9C46-1803D051AF07}"
+          DTS:From="Package\STAGE p DW Metas\DepartamentoMeta"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição 1"
+          DTS:To="Package\STAGE p DW Metas\Truncate MovMetaVale" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{7E60333D-0C52-4252-B6FE-F480728C1400}"
+          DTS:From="Package\STAGE p DW Metas\Truncate MovMetaVale"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição 2"
+          DTS:To="Package\STAGE p DW Metas\Carga MovMetaVale" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{3E3138B8-B38E-4981-A37B-57B0FADA7123}"
+          DTS:From="Package\STAGE p DW Metas\Carga MovMetaVale"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição 3"
+          DTS:To="Package\STAGE p DW Metas\Truncate DW DimDepartamentoMeta" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{4382FB6D-EFC4-47CF-8939-B75291A7BF40}"
+          DTS:From="Package\STAGE p DW Metas\Truncate DW DimDepartamentoMeta"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição 4"
+          DTS:To="Package\STAGE p DW Metas\DW DimDepartamentoMeta" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restrição]"
+      DTS:CreationName=""
+      DTS:DTSID="{A251A658-AEFF-4CC6-AD0A-C89B0F28A670}"
+      DTS:From="Package\OLTP p STAGE Metas"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restrição"
+      DTS:To="Package\STAGE p DW Metas" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="198,42"
+          Id="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta"
+          TopLeft="512,25" />
+        <NodeLayout
+          Size="276,42"
+          Id="Package\OLTP p STAGE Metas\Truncate Table OLTP DepartamentoMetas"
+          TopLeft="63,26" />
+        <EdgeLayout
+          Id="Package\OLTP p STAGE Metas.PrecedenceConstraints[Restrição]"
+          TopLeft="339,46.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="173,0"
+              Start="0,0"
+              End="165.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="165.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="776,121"
+          Size="776,164"
+          Id="Package\OLTP p STAGE Metas"
+          TopLeft="226.333333333333,64.1666666666667" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\STAGE p DW Metas\Carga MovMetaVale"
+          TopLeft="381,33" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\STAGE p DW Metas\DepartamentoMeta"
+          TopLeft="86,131" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\STAGE p DW Metas\DW DimDepartamentoMeta"
+          TopLeft="671,129" />
+        <NodeLayout
+          Size="253,42"
+          Id="Package\STAGE p DW Metas\Truncate DW DimDepartamentoMeta"
+          TopLeft="644,29" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\STAGE p DW Metas\Truncate MovMetaVale"
+          TopLeft="375,130" />
+        <NodeLayout
+          Size="264,42"
+          Id="Package\STAGE p DW Metas\Truncate Table ST DepartamentoMetas"
+          TopLeft="31,31" />
+        <EdgeLayout
+          Id="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição]"
+          TopLeft="166.75,73">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição 1]"
+          TopLeft="255,151.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="120,0"
+              Start="0,0"
+              End="112.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="112.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição 2]"
+          TopLeft="467.5,130">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-55"
+              Start="0,0"
+              End="0,-47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição 3]"
+          TopLeft="553,52">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="91,0"
+              Start="0,0"
+              End="83.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="83.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\STAGE p DW Metas.PrecedenceConstraints[Restrição 4]"
+          TopLeft="772.75,71">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="904,228"
+          Size="904,271"
+          Id="Package\STAGE p DW Metas"
+          TopLeft="168.666666666667,383.333333333333" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restrição]"
+          TopLeft="617.5,228.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,155.166666666666"
+              Start="0,0"
+              End="0,147.666666666666">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,147.666666666666" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="169,42"
+          Id="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta"
+          TopLeft="494,64" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT"
+          TopLeft="133,63" />
+        <EdgeLayout
+          Id="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta.Paths[Saída de Origem OLE DB]"
+          TopLeft="314,84.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="180,0"
+              Start="0,0"
+              End="172.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="172.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\DepartamentoMeta">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\OLTP p STAGE Metas\OLTP DepartamentoMeta\MargemGerencialGHT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\STAGE p DW Metas\Carga MovMetaVale">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale"
+          TopLeft="484,61" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale"
+          TopLeft="60,59" />
+        <EdgeLayout
+          Id="Package\STAGE p DW Metas\Carga MovMetaVale.Paths[Saída de Origem OLE DB]"
+          TopLeft="230,81">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="254,0"
+              Start="0,0"
+              End="246.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="246.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STAGE p DW Metas\Carga MovMetaVale\DW DimMovMetaVale">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STAGE p DW Metas\Carga MovMetaVale\OLTP MovMetaVale">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\STAGE p DW Metas\DepartamentoMeta">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta"
+          TopLeft="405,100" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta"
+          TopLeft="77,95" />
+        <EdgeLayout
+          Id="Package\STAGE p DW Metas\DepartamentoMeta.Paths[Saída de Origem OLE DB]"
+          TopLeft="275,118.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="130,0"
+              Start="0,0"
+              End="122.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="122.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STAGE p DW Metas\DepartamentoMeta\OLTP DepartamentoMeta">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STAGE p DW Metas\DepartamentoMeta\ST DepartamentoMeta">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\STAGE p DW Metas\DW DimDepartamentoMeta">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="199,42"
+          Id="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta"
+          TopLeft="72,57" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta"
+          TopLeft="418,57" />
+        <EdgeLayout
+          Id="Package\STAGE p DW Metas\DW DimDepartamentoMeta.Paths[Saída de Origem OLE DB]"
+          TopLeft="271,78">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="147,0"
+              Start="0,0"
+              End="139.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="139.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\STAGE p DW Metas\DW DimDepartamentoMeta\DW DimDepartamentoMeta">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\STAGE p DW Metas\DW DimDepartamentoMeta\ST DepartamementoMeta">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

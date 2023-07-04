@@ -1,0 +1,1877 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/16/2023 10:50:13 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NOTSAOTEC008"
+  DTS:CreatorName="GHT\luiz.silva"
+  DTS:DTSID="{BA6D9A09-3D4D-4CE3-8E98-861F772A3A0D}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="Otif Vale"
+  DTS:PackageType="5"
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{35F034A6-F7BC-4428-84DC-ED5420A90A3A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga OTIF VALE"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contêiner da Sequência"
+      DTS:DTSID="{194F5C37-C4D1-41E7-8DC1-76478A7C38C9}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga OTIF VALE">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarefa Fluxo de Dados"
+          DTS:DTSID="{964EC03A-884B-4BA4-9C06-22E81D3FEBFA}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Carga Oltp p ST OtifVale"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origem OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origem OLE DB"
+                  name="OLTP OTIF_VALE"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT ID
+      ,MONTH
+      ,PO
+      ,PO_ITEM
+      ,MATERIAL
+      ,EXPECTED_DATE
+      ,EXPECTED_QTY
+      ,DELIVERY_DATE
+      ,PLANT
+      ,PO_CONTRACT
+      ,DELIVERY_QTY
+      ,PO_TYPE
+      ,REQUISITION_ITEM
+      ,REQUISITION_APPROVAL_DATE
+      ,LAST_MATERIAL_DOC_DATE
+      ,PART_NUMBER
+      ,PO_CREATION_DATE
+      ,PLANT_NAME
+      ,PO_APPROVAL_DATE
+      ,LEAD_TIME
+      ,DI
+      ,UF
+      ,PO_CATEGORY_DESC
+      ,REQ_SCHEDULE_DATE
+      ,PO_SCHEDULE_DATE
+      ,LEAD_TIME_CALC
+      ,SCHEDULE_DATE
+      ,FLAG_DELIV_COMPLETED
+      ,UNIT_PRICE
+      ,OTIF_REMESSA_FINAL
+      ,FAMILIA
+      ,GCON
+      ,VENDOR_TYPE
+      ,xYEAR
+      ,CATEGORY_DESCRIPTION
+      ,ITEM_DESCRIPTION
+      ,CATEGORIA
+      ,MUNIC_PLANT
+      ,UF_VENDOR
+      ,DATA_PORTARIA
+      ,DAYS_DELAY
+      ,USUARIO_INCLUSAO
+      ,DATAHORA_INCLUSAO
+  FROM dbo.OTIF_VALE</property>
+                    <property
+                      dataType="System.String"
+                      description="A variável que contém o comando SQL a ser executado."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Os mapeamentos entre os parâmetros no comando SQL e as variáveis."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Connections[OleDbConnection]"
+                      connectionManagerID="{A5AE8008-7CF0-4B45-B053-D29B71B3CB1B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[10.10.1.11_sql2016.CARAJAS.sa]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB]"
+                      name="Saída de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[ID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[ID]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[ID]"
+                          name="ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MONTH]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[MONTH]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MONTH]"
+                          name="MONTH"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO]"
+                          length="20"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO]"
+                          name="PO"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_ITEM]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_ITEM]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_ITEM]"
+                          name="PO_ITEM"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MATERIAL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[MATERIAL]"
+                          length="20"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MATERIAL]"
+                          name="MATERIAL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[EXPECTED_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[EXPECTED_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[EXPECTED_DATE]"
+                          name="EXPECTED_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[EXPECTED_QTY]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[EXPECTED_QTY]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[EXPECTED_QTY]"
+                          name="EXPECTED_QTY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DELIVERY_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DELIVERY_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DELIVERY_DATE]"
+                          name="DELIVERY_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANT]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PLANT]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANT]"
+                          name="PLANT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CONTRACT]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_CONTRACT]"
+                          length="20"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CONTRACT]"
+                          name="PO_CONTRACT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DELIVERY_QTY]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DELIVERY_QTY]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DELIVERY_QTY]"
+                          name="DELIVERY_QTY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_TYPE]"
+                          length="30"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_TYPE]"
+                          name="PO_TYPE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQUISITION_ITEM]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[REQUISITION_ITEM]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQUISITION_ITEM]"
+                          name="REQUISITION_ITEM"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQUISITION_APPROVAL_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[REQUISITION_APPROVAL_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQUISITION_APPROVAL_DATE]"
+                          name="REQUISITION_APPROVAL_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LAST_MATERIAL_DOC_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[LAST_MATERIAL_DOC_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LAST_MATERIAL_DOC_DATE]"
+                          name="LAST_MATERIAL_DOC_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PART_NUMBER]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PART_NUMBER]"
+                          length="30"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PART_NUMBER]"
+                          name="PART_NUMBER"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CREATION_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_CREATION_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CREATION_DATE]"
+                          name="PO_CREATION_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANT_NAME]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PLANT_NAME]"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANT_NAME]"
+                          name="PLANT_NAME"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_APPROVAL_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_APPROVAL_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_APPROVAL_DATE]"
+                          name="PO_APPROVAL_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LEAD_TIME]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[LEAD_TIME]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LEAD_TIME]"
+                          name="LEAD_TIME"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DI]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DI]"
+                          length="30"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DI]"
+                          name="DI"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UF]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[UF]"
+                          length="3"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UF]"
+                          name="UF"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CATEGORY_DESC]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_CATEGORY_DESC]"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CATEGORY_DESC]"
+                          name="PO_CATEGORY_DESC"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQ_SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[REQ_SCHEDULE_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQ_SCHEDULE_DATE]"
+                          name="REQ_SCHEDULE_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_SCHEDULE_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_SCHEDULE_DATE]"
+                          name="PO_SCHEDULE_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LEAD_TIME_CALC]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[LEAD_TIME_CALC]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LEAD_TIME_CALC]"
+                          name="LEAD_TIME_CALC"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[SCHEDULE_DATE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[SCHEDULE_DATE]"
+                          name="SCHEDULE_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[FLAG_DELIV_COMPLETED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[FLAG_DELIV_COMPLETED]"
+                          length="1"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[FLAG_DELIV_COMPLETED]"
+                          name="FLAG_DELIV_COMPLETED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UNIT_PRICE]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[UNIT_PRICE]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UNIT_PRICE]"
+                          name="UNIT_PRICE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[OTIF_REMESSA_FINAL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[OTIF_REMESSA_FINAL]"
+                          length="1"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[OTIF_REMESSA_FINAL]"
+                          name="OTIF_REMESSA_FINAL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[FAMILIA]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[FAMILIA]"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[FAMILIA]"
+                          name="FAMILIA"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[GCON]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[GCON]"
+                          length="50"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[GCON]"
+                          name="GCON"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[VENDOR_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[VENDOR_TYPE]"
+                          length="50"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[VENDOR_TYPE]"
+                          name="VENDOR_TYPE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[xYEAR]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[xYEAR]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[xYEAR]"
+                          name="xYEAR"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[CATEGORY_DESCRIPTION]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[CATEGORY_DESCRIPTION]"
+                          length="50"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[CATEGORY_DESCRIPTION]"
+                          name="CATEGORY_DESCRIPTION"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[ITEM_DESCRIPTION]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[ITEM_DESCRIPTION]"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[ITEM_DESCRIPTION]"
+                          name="ITEM_DESCRIPTION"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[CATEGORIA]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[CATEGORIA]"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[CATEGORIA]"
+                          name="CATEGORIA"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MUNIC_PLANT]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[MUNIC_PLANT]"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MUNIC_PLANT]"
+                          name="MUNIC_PLANT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UF_VENDOR]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[UF_VENDOR]"
+                          length="3"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UF_VENDOR]"
+                          name="UF_VENDOR"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DATA_PORTARIA]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DATA_PORTARIA]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DATA_PORTARIA]"
+                          name="DATA_PORTARIA"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DAYS_DELAY]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DAYS_DELAY]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DAYS_DELAY]"
+                          name="DAYS_DELAY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[USUARIO_INCLUSAO]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[USUARIO_INCLUSAO]"
+                          length="30"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[USUARIO_INCLUSAO]"
+                          name="USUARIO_INCLUSAO"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DATAHORA_INCLUSAO]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversão"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DATAHORA_INCLUSAO]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DATAHORA_INCLUSAO]"
+                          name="DATAHORA_INCLUSAO"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[ID]"
+                          dataType="i4"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[MONTH]"
+                          dataType="i4"
+                          name="MONTH" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="PO" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_ITEM]"
+                          dataType="i4"
+                          name="PO_ITEM" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[MATERIAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="MATERIAL" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[EXPECTED_DATE]"
+                          dataType="dbTimeStamp"
+                          name="EXPECTED_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[EXPECTED_QTY]"
+                          dataType="r8"
+                          name="EXPECTED_QTY" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DELIVERY_DATE]"
+                          dataType="dbTimeStamp"
+                          name="DELIVERY_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PLANT]"
+                          dataType="i4"
+                          name="PLANT" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_CONTRACT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="PO_CONTRACT" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DELIVERY_QTY]"
+                          dataType="i4"
+                          name="DELIVERY_QTY" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="PO_TYPE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[REQUISITION_ITEM]"
+                          dataType="i4"
+                          name="REQUISITION_ITEM" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[REQUISITION_APPROVAL_DATE]"
+                          dataType="dbTimeStamp"
+                          name="REQUISITION_APPROVAL_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[LAST_MATERIAL_DOC_DATE]"
+                          dataType="dbTimeStamp"
+                          name="LAST_MATERIAL_DOC_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PART_NUMBER]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="PART_NUMBER" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_CREATION_DATE]"
+                          dataType="dbTimeStamp"
+                          name="PO_CREATION_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PLANT_NAME]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="PLANT_NAME" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_APPROVAL_DATE]"
+                          dataType="dbTimeStamp"
+                          name="PO_APPROVAL_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[LEAD_TIME]"
+                          dataType="i4"
+                          name="LEAD_TIME" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="DI" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[UF]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="UF" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_CATEGORY_DESC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="PO_CATEGORY_DESC" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[REQ_SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          name="REQ_SCHEDULE_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[PO_SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          name="PO_SCHEDULE_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[LEAD_TIME_CALC]"
+                          dataType="i4"
+                          name="LEAD_TIME_CALC" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          name="SCHEDULE_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[FLAG_DELIV_COMPLETED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="FLAG_DELIV_COMPLETED" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[UNIT_PRICE]"
+                          dataType="r8"
+                          name="UNIT_PRICE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[OTIF_REMESSA_FINAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="OTIF_REMESSA_FINAL" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[FAMILIA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="FAMILIA" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[GCON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="GCON" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[VENDOR_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="VENDOR_TYPE" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[xYEAR]"
+                          dataType="i4"
+                          name="xYEAR" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[CATEGORY_DESCRIPTION]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="CATEGORY_DESCRIPTION" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[ITEM_DESCRIPTION]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ITEM_DESCRIPTION" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[CATEGORIA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="CATEGORIA" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[MUNIC_PLANT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="MUNIC_PLANT" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[UF_VENDOR]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="UF_VENDOR" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DATA_PORTARIA]"
+                          dataType="dbTimeStamp"
+                          name="DATA_PORTARIA" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DAYS_DELAY]"
+                          dataType="i4"
+                          name="DAYS_DELAY" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[USUARIO_INCLUSAO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="USUARIO_INCLUSAO" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].ExternalColumns[DATAHORA_INCLUSAO]"
+                          dataType="dbTimeStamp"
+                          name="DATAHORA_INCLUSAO" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB]"
+                      isErrorOut="true"
+                      name="Saída de Erro de Origem OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ID]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ID]"
+                          name="ID" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[MONTH]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[MONTH]"
+                          name="MONTH" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO]"
+                          name="PO" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_ITEM]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_ITEM]"
+                          name="PO_ITEM" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[MATERIAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[MATERIAL]"
+                          name="MATERIAL" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[EXPECTED_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[EXPECTED_DATE]"
+                          name="EXPECTED_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[EXPECTED_QTY]"
+                          dataType="r8"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[EXPECTED_QTY]"
+                          name="EXPECTED_QTY" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DELIVERY_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DELIVERY_DATE]"
+                          name="DELIVERY_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PLANT]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PLANT]"
+                          name="PLANT" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_CONTRACT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_CONTRACT]"
+                          name="PO_CONTRACT" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DELIVERY_QTY]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DELIVERY_QTY]"
+                          name="DELIVERY_QTY" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_TYPE]"
+                          name="PO_TYPE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[REQUISITION_ITEM]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[REQUISITION_ITEM]"
+                          name="REQUISITION_ITEM" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[REQUISITION_APPROVAL_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[REQUISITION_APPROVAL_DATE]"
+                          name="REQUISITION_APPROVAL_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[LAST_MATERIAL_DOC_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[LAST_MATERIAL_DOC_DATE]"
+                          name="LAST_MATERIAL_DOC_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PART_NUMBER]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PART_NUMBER]"
+                          name="PART_NUMBER" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_CREATION_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_CREATION_DATE]"
+                          name="PO_CREATION_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PLANT_NAME]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PLANT_NAME]"
+                          name="PLANT_NAME" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_APPROVAL_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_APPROVAL_DATE]"
+                          name="PO_APPROVAL_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[LEAD_TIME]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[LEAD_TIME]"
+                          name="LEAD_TIME" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DI]"
+                          name="DI" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[UF]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[UF]"
+                          name="UF" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_CATEGORY_DESC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_CATEGORY_DESC]"
+                          name="PO_CATEGORY_DESC" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[REQ_SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[REQ_SCHEDULE_DATE]"
+                          name="REQ_SCHEDULE_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[PO_SCHEDULE_DATE]"
+                          name="PO_SCHEDULE_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[LEAD_TIME_CALC]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[LEAD_TIME_CALC]"
+                          name="LEAD_TIME_CALC" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[SCHEDULE_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[SCHEDULE_DATE]"
+                          name="SCHEDULE_DATE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[FLAG_DELIV_COMPLETED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[FLAG_DELIV_COMPLETED]"
+                          name="FLAG_DELIV_COMPLETED" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[UNIT_PRICE]"
+                          dataType="r8"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[UNIT_PRICE]"
+                          name="UNIT_PRICE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[OTIF_REMESSA_FINAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[OTIF_REMESSA_FINAL]"
+                          name="OTIF_REMESSA_FINAL" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[FAMILIA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[FAMILIA]"
+                          name="FAMILIA" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[GCON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[GCON]"
+                          name="GCON" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[VENDOR_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[VENDOR_TYPE]"
+                          name="VENDOR_TYPE" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[xYEAR]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[xYEAR]"
+                          name="xYEAR" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[CATEGORY_DESCRIPTION]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[CATEGORY_DESCRIPTION]"
+                          name="CATEGORY_DESCRIPTION" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ITEM_DESCRIPTION]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ITEM_DESCRIPTION]"
+                          name="ITEM_DESCRIPTION" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[CATEGORIA]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[CATEGORIA]"
+                          name="CATEGORIA" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[MUNIC_PLANT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[MUNIC_PLANT]"
+                          name="MUNIC_PLANT" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[UF_VENDOR]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[UF_VENDOR]"
+                          name="UF_VENDOR" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DATA_PORTARIA]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DATA_PORTARIA]"
+                          name="DATA_PORTARIA" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DAYS_DELAY]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DAYS_DELAY]"
+                          name="DAYS_DELAY" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[USUARIO_INCLUSAO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[USUARIO_INCLUSAO]"
+                          name="USUARIO_INCLUSAO" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DATAHORA_INCLUSAO]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[DATAHORA_INCLUSAO]"
+                          name="DATAHORA_INCLUSAO" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Erro de Origem OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos os Direitos Reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino OLE DB"
+                  name="St OtifVale"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="O tempo em segundos antes que um comando expire. Zero indica uma expiração infinita."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowset">[ST].[OtifVale]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica a variável que contém o nome do objeto de banco de dados usado para abrir um conjunto de linhas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="O comando SQL a ser executado."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT ID
+      ,NumMes
+      ,PartNumber
+      ,PO
+      ,PoItem
+      ,Material
+      ,DateEsperada
+      ,QtyEsperada
+      ,DateEntrega
+      ,PoContrato
+      ,QtyEntrega
+      ,PoTipo
+      ,RequisicaoItem
+      ,RequisicaoDataAprovacao
+      ,DataUltDocumentoMat
+      ,PoDataCriacao
+      ,Planta
+      ,PlantaNome
+      ,PlantaMunicipio
+      ,PoDataAprovacao
+      ,LeadTime
+      ,LeadTimeCalculo
+      ,DI
+      ,UF
+      ,PoDescricaoCategoria
+      ,REQAgendarData
+      ,POAgendarData
+      ,AgendarData
+      ,FlagEntregaConcluida
+      ,PrecoUnitario
+      ,OtifRemessaFinal
+      ,Familia
+      ,Gcon
+      ,TipoVendedor
+      ,Ano
+      ,DescricaoCategoria
+      ,DescricaoItem
+      ,Categoria
+      ,UfVendedor
+      ,PortariaData
+      ,DAYS_DELAY
+      ,LogUsuarioInclusao
+      ,LogDataHoraInclusao
+  FROM ST.OtifVale</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica a página de código de coluna a ser usada quando não há informações de página de código disponíveis a partir da fonte de dados."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forca o uso do valor da propriedade DefaultCodePage durante a descrição dos dados de caractere."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica o modo usado para acessar o banco de dados."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se os valores fornecidos para colunas de identidade serão copiados no destino. Se false, os valores para colunas de identidade serão gerados automaticamente no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica se as colunas que contêm null terão null inserido no destino. Se false, as colunas que contêm null terão seus valores padrão inseridos no destino. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica as opções a serem usadas com o carregamento rápido. Aplicável apenas se o carregamento rápido estiver ativado."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica quando confirmações são emitidas durante a inserção de dados. Um valor de 0 especifica que uma confirmação será emitida ao final da inserção de dados. Aplicável somente se o carregamento rápido estiver ativado."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Connections[OleDbConnection]"
+                      connectionManagerID="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Stage]"
+                      description="A conexão de tempo de execução OLE DB usada para acessar o banco de dados."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB]"
+                      errorOrTruncationOperation="Inserir"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de Destino OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[ID]"
+                          cachedDataType="i4"
+                          cachedName="ID"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[ID]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[ID]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[MONTH]"
+                          cachedDataType="i4"
+                          cachedName="MONTH"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[NumMes]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MONTH]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PART_NUMBER]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="PART_NUMBER"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PartNumber]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PART_NUMBER]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PO]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="PO"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PO]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PO_ITEM]"
+                          cachedDataType="i4"
+                          cachedName="PO_ITEM"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoItem]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_ITEM]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[MATERIAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="MATERIAL"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Material]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MATERIAL]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[EXPECTED_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="EXPECTED_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DateEsperada]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[EXPECTED_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[EXPECTED_QTY]"
+                          cachedDataType="r8"
+                          cachedName="EXPECTED_QTY"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtyEsperada]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[EXPECTED_QTY]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[DELIVERY_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="DELIVERY_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DateEntrega]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DELIVERY_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PO_CONTRACT]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="PO_CONTRACT"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoContrato]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CONTRACT]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[DELIVERY_QTY]"
+                          cachedDataType="i4"
+                          cachedName="DELIVERY_QTY"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtyEntrega]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DELIVERY_QTY]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PO_TYPE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="PO_TYPE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoTipo]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_TYPE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[REQUISITION_ITEM]"
+                          cachedDataType="i4"
+                          cachedName="REQUISITION_ITEM"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[RequisicaoItem]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQUISITION_ITEM]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[REQUISITION_APPROVAL_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="REQUISITION_APPROVAL_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[RequisicaoDataAprovacao]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQUISITION_APPROVAL_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[LAST_MATERIAL_DOC_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="LAST_MATERIAL_DOC_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DataUltDocumentoMat]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LAST_MATERIAL_DOC_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PO_CREATION_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PO_CREATION_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoDataCriacao]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CREATION_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PLANT]"
+                          cachedDataType="i4"
+                          cachedName="PLANT"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Planta]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANT]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PLANT_NAME]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="PLANT_NAME"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PlantaNome]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PLANT_NAME]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[MUNIC_PLANT]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="MUNIC_PLANT"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PlantaMunicipio]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[MUNIC_PLANT]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PO_APPROVAL_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PO_APPROVAL_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoDataAprovacao]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_APPROVAL_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[LEAD_TIME]"
+                          cachedDataType="i4"
+                          cachedName="LEAD_TIME"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[LeadTime]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LEAD_TIME]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[LEAD_TIME_CALC]"
+                          cachedDataType="i4"
+                          cachedName="LEAD_TIME_CALC"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[LeadTimeCalculo]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[LEAD_TIME_CALC]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[DI]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="DI"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DI]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DI]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[UF]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="UF"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[UF]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UF]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PO_CATEGORY_DESC]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="PO_CATEGORY_DESC"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoDescricaoCategoria]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_CATEGORY_DESC]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[REQ_SCHEDULE_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="REQ_SCHEDULE_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[REQAgendarData]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[REQ_SCHEDULE_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[PO_SCHEDULE_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PO_SCHEDULE_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[POAgendarData]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[PO_SCHEDULE_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[SCHEDULE_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="SCHEDULE_DATE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[AgendarData]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[SCHEDULE_DATE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[FLAG_DELIV_COMPLETED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="FLAG_DELIV_COMPLETED"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[FlagEntregaConcluida]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[FLAG_DELIV_COMPLETED]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[UNIT_PRICE]"
+                          cachedDataType="r8"
+                          cachedName="UNIT_PRICE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PrecoUnitario]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UNIT_PRICE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[OTIF_REMESSA_FINAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="OTIF_REMESSA_FINAL"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[OtifRemessaFinal]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[OTIF_REMESSA_FINAL]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[FAMILIA]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="FAMILIA"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Familia]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[FAMILIA]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[GCON]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="GCON"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Gcon]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[GCON]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[VENDOR_TYPE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="VENDOR_TYPE"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[TipoVendedor]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[VENDOR_TYPE]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[xYEAR]"
+                          cachedDataType="i4"
+                          cachedName="xYEAR"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Ano]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[xYEAR]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[CATEGORY_DESCRIPTION]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="CATEGORY_DESCRIPTION"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DescricaoCategoria]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[CATEGORY_DESCRIPTION]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[ITEM_DESCRIPTION]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="ITEM_DESCRIPTION"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DescricaoItem]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[ITEM_DESCRIPTION]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[CATEGORIA]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="CATEGORIA"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Categoria]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[CATEGORIA]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[UF_VENDOR]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="UF_VENDOR"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[UfVendedor]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[UF_VENDOR]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[DATA_PORTARIA]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="DATA_PORTARIA"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PortariaData]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DATA_PORTARIA]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[DAYS_DELAY]"
+                          cachedDataType="i4"
+                          cachedName="DAYS_DELAY"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DAYS_DELAY]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DAYS_DELAY]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[USUARIO_INCLUSAO]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="USUARIO_INCLUSAO"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[LogUsuarioInclusao]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[USUARIO_INCLUSAO]" />
+                        <inputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].Columns[DATAHORA_INCLUSAO]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="DATAHORA_INCLUSAO"
+                          externalMetadataColumnId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[LogDataHoraInclusao]"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB].Columns[DATAHORA_INCLUSAO]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[ID]"
+                          dataType="i4"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[NumMes]"
+                          dataType="i4"
+                          name="NumMes" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PartNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="PartNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PO]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="PO" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoItem]"
+                          dataType="i4"
+                          name="PoItem" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Material]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="Material" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DateEsperada]"
+                          dataType="dbTimeStamp"
+                          name="DateEsperada" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtyEsperada]"
+                          dataType="r8"
+                          name="QtyEsperada" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DateEntrega]"
+                          dataType="dbTimeStamp"
+                          name="DateEntrega" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoContrato]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="PoContrato" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[QtyEntrega]"
+                          dataType="i4"
+                          name="QtyEntrega" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoTipo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="PoTipo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[RequisicaoItem]"
+                          dataType="i4"
+                          name="RequisicaoItem" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[RequisicaoDataAprovacao]"
+                          dataType="dbTimeStamp"
+                          name="RequisicaoDataAprovacao" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DataUltDocumentoMat]"
+                          dataType="dbTimeStamp"
+                          name="DataUltDocumentoMat" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoDataCriacao]"
+                          dataType="dbTimeStamp"
+                          name="PoDataCriacao" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Planta]"
+                          dataType="i4"
+                          name="Planta" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PlantaNome]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="PlantaNome" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PlantaMunicipio]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="PlantaMunicipio" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoDataAprovacao]"
+                          dataType="dbTimeStamp"
+                          name="PoDataAprovacao" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[LeadTime]"
+                          dataType="i4"
+                          name="LeadTime" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[LeadTimeCalculo]"
+                          dataType="i4"
+                          name="LeadTimeCalculo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="DI" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[UF]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="UF" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PoDescricaoCategoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="PoDescricaoCategoria" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[REQAgendarData]"
+                          dataType="dbTimeStamp"
+                          name="REQAgendarData" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[POAgendarData]"
+                          dataType="dbTimeStamp"
+                          name="POAgendarData" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[AgendarData]"
+                          dataType="dbTimeStamp"
+                          name="AgendarData" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[FlagEntregaConcluida]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="FlagEntregaConcluida" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PrecoUnitario]"
+                          dataType="r8"
+                          name="PrecoUnitario" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[OtifRemessaFinal]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="OtifRemessaFinal" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Familia]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Familia" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Gcon]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Gcon" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[TipoVendedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="TipoVendedor" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Ano]"
+                          dataType="i4"
+                          name="Ano" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DescricaoCategoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="DescricaoCategoria" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DescricaoItem]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="DescricaoItem" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[Categoria]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Categoria" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[UfVendedor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="UfVendedor" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[PortariaData]"
+                          dataType="dbTimeStamp"
+                          name="PortariaData" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[DAYS_DELAY]"
+                          dataType="i4"
+                          name="DAYS_DELAY" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[LogUsuarioInclusao]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="LogUsuarioInclusao" />
+                        <externalMetadataColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB].ExternalColumns[LogDataHoraInclusao]"
+                          dataType="dbTimeStamp"
+                          name="LogDataHoraInclusao" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Outputs[Saída de Erro de Destino OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Saída de Erro de Destino OLE DB"
+                      synchronousInputId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Outputs[Saída de Erro de Destino OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale.Paths[Saída de Origem OLE DB]"
+                  endId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale.Inputs[Entrada de Destino OLE DB]"
+                  name="Saída de Origem OLE DB"
+                  startId="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE.Outputs[Saída de Origem OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Carga OTIF VALE\Truncate ST OtifVale"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarefa Executar SQL"
+          DTS:DTSID="{D3454FE9-A047-44C4-9E9E-C736E7596349}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate ST OtifVale"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6B1C895D-F631-44DD-B99D-1B496EFE7C27}"
+              SQLTask:SqlStatementSource="Truncate table St.OtifVale" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Carga OTIF VALE.PrecedenceConstraints[Restrição]"
+          DTS:CreationName=""
+          DTS:DTSID="{FBE34FD1-9AE9-4817-8AA8-1F2DE9B33955}"
+          DTS:From="Package\Carga OTIF VALE\Truncate ST OtifVale"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Restrição"
+          DTS:To="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta seção CDATA contém as informações de layout do pacote. A seção inclui informações como coordenadas (x,y), largura e altura.-->
+<!--Se você editar manualmente esta seção e cometer algum erro, poderá excluí-la. -->
+<!--O pacote ainda poderá ser carregado normalmente, mas as informações de layout anteriores serão perdidas e o designer reorganizará automaticamente os elementos na superfície de design.-->
+<Objects
+  Version="8">
+  <!--Cada nó abaixo conterá propriedades que não afetam o comportamento em tempo de execução.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Carga OTIF VALE\Truncate ST OtifVale"
+          TopLeft="36,98" />
+        <NodeLayout
+          Size="194,42"
+          Id="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale"
+          TopLeft="406,102" />
+        <EdgeLayout
+          Id="Package\Carga OTIF VALE.PrecedenceConstraints[Restrição]"
+          TopLeft="212,121">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="194,0"
+              Start="0,0"
+              End="186.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="186.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="616,292"
+          Size="616,335"
+          Id="Package\Carga OTIF VALE"
+          TopLeft="59,29" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE"
+          TopLeft="168,93" />
+        <NodeLayout
+          Size="129,42"
+          Id="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale"
+          TopLeft="586,98" />
+        <EdgeLayout
+          Id="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale.Paths[Saída de Origem OLE DB]"
+          TopLeft="328,116.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="258,0"
+              Start="0,0"
+              End="250.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="250.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\OLTP OTIF_VALE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga OTIF VALE\Carga Oltp p ST OtifVale\St OtifVale">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

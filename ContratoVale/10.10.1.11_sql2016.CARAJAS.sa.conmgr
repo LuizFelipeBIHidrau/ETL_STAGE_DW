@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="10.10.1.11_sql2016.CARAJAS.sa"
+  DTS:DTSID="{A5AE8008-7CF0-4B45-B053-D29B71B3CB1B}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=10.10.1.11\sql2016;User ID=sa;Initial Catalog=CARAJAS;Provider=SQLNCLI11.1;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGD71KsiZIEWEa1YBrXw4twAAAAACAAAAAAADZgAAwAAAABAAAAAxCPQGwfknZN8hZGdJl3TwAAAAAASAAACgAAAAEAAAAIaLKnCHxYG7K1tx+bAkkdx4AAAAtgRge9f+gzfeT/7LUlQ3ygDwLSQjLRMzHWqKn17WW0UGenc0x+MVrEUQu+aQQwlsVe04g0E4rOxDsrElMsH0BrQYJHaclt74ISERiLm/5VHLIHACXxzMCmTrFh3nKBVZl+6k7HF+jakgijhgYGmiLG/y396PhDvsFAAAANI9pLx42Sj6IqM0bS1y1Jjz8O8h</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
