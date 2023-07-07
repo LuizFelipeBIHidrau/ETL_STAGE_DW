@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="6/19/2023 3:30:03 PM"
@@ -12,7 +12,7 @@
   DTS:ObjectName="OLTP-ST-DW  EntradaProduçãoBiza"
   DTS:PackageType="5"
   DTS:VersionBuild="22"
-  DTS:VersionGUID="{D382C39D-E28C-433A-BA57-3F0C4C597DB0}">
+  DTS:VersionGUID="{B4AC69AD-8B4D-4191-B2D1-2C1B62EE5DE2}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -29,7 +29,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAAv+nofO8reaGGi9mNe2scTAAAAAASAAACgAAAAEAAAALQyo5L/v7FhCQDzbrv+kOMQAAAABxJZ4Q4tz8UhY+knTI3d+BQAAAAGk3sn4BQUjwEJss0GXfa9fcTapw</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADDDVCJD1gkw+K9OPLAzY9JAAAAAASAAACgAAAAEAAAAPYRmAtksqqIFWwUXfZCe4YQAAAAopxofV0lVWgOfZvvo2qNfBQAAADgbEJ2a4o62C8xRYzH62yijMDpSQ</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -46,7 +46,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAACjH1Q869LevRk4R8ZGoy9AAAAAAASAAACgAAAAEAAAAL6KzdkrMlLLXE3huLDoVtUQAAAAQ2/IklI21nyhsIXXvhAnSxQAAACFjCa9SApOZIxqTQZsr2NBCA/QRg</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADrNTV12fDv5y+4kARoA0AHAAAAAASAAACgAAAAEAAAAGL4InzNlNtSzdd3QkuIoSEQAAAA0XHB0n8I/wM6sbefjhqrDhQAAAB1AeuBoY54ps/lLEZ/QnHqMC9u3A</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>

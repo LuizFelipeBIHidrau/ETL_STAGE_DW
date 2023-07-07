@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="6/22/2023 10:02:11 AM"
@@ -12,7 +12,7 @@
   DTS:ObjectName="OLTP-ST-DW  BizaPerda"
   DTS:PackageType="5"
   DTS:VersionBuild="17"
-  DTS:VersionGUID="{51D829EB-2BFE-495E-8BBA-C911D70A26F9}">
+  DTS:VersionGUID="{155FA67A-04DF-47AA-A2D5-7DD4E41295B5}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -29,7 +29,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAA7/00yWM+qMfFy1MUOHi+pAAAAAASAAACgAAAAEAAAAIrUMLIJ6BayYcr8gi9vpIkQAAAA4vkvDPIfdro/oaSuMjMUThQAAABfQb0/dIwVLu1exojaHMKUnTqfaQ</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADDG+msOGLoPOILFhNsbtl5AAAAAASAAACgAAAAEAAAAJjDRbO+vskcDN5K7DCoSBYQAAAAu7/mil4DrBkA+oIOhIA2EhQAAABmlflwH6X0IJRDQCyDLfUmic4VCw</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>

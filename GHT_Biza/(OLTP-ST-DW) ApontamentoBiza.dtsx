@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="1/20/2023 1:22:35 PM"
@@ -12,7 +12,7 @@
   DTS:ObjectName="OLTP-ST-DW  ApontamentoBiza"
   DTS:PackageType="5"
   DTS:VersionBuild="35"
-  DTS:VersionGUID="{1EE1BCA6-B655-4F42-B8B0-FCD64E4F2623}">
+  DTS:VersionGUID="{43E5967D-868C-4F47-9554-42D9B75B218E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -29,7 +29,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABv0PIAmiYJBm+jXyBxEZ0yAAAAAASAAACgAAAAEAAAAEGZELI2A2Yc6jseaUAXXYoQAAAAWiPj+D/H7KkSULRl/L1WqBQAAADP5+gUwzsBjqS6M0kZuNUg0M8Irg</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAD3qoppZoN6AkRmanaUuMG9AAAAAASAAACgAAAAEAAAAD7/2p1E6taUS+KPm+hf78sQAAAAzdUXWXN7GJpZ/qBOUDSy6xQAAABqmnTfpybPRXeLa1nRoKB9jHhuMA</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>

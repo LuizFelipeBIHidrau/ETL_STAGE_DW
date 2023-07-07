@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">NOTSAOTEC008</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAACAAAAAAADZgAAwAAAABAAAACvLM6yYZ5XwIMP0bb3JqsrAAAAAASAAACgAAAAEAAAAKgU4/vPa/PUR70IbNi0HsCIAAAAwzlqpNl2LDjCmn8ds5bcHvybzI9S2Z54cLb7fiCxta4B6diFtBTxsTjevWdg79/eECNUqn4vQJIOrCG654+OP/FGOIuNDNtkVgw08dmmXKHig7FEYBlyTNpS58SNeXIPqS6nHT6GVUNecsUOiMncyDvJQBbrxFMLtncKZaL5JmzYGdFfDkasFRQAAAA9KU53Itzkoa+VtXKTQ2HggAdaeA==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABQTAj/GkmUGTA8edVbU7GwAAAAACAAAAAAADZgAAwAAAABAAAAA9IO3T6Ha9b0miOMCmBoweAAAAAASAAACgAAAAEAAAADVq+NR8w7qooBgeD1e5LceIAAAA/gCA83fViPfNPCS9RKvZHh2lxrpD2JrrYSjdBQ6E/zuPnpaa1m9AtqNqaBhx4E/k2rHfaqHqWnsqyyfOrpeUAD01zVr1rgXR5DdSgUE377KhB+INJzM6tFqE8GqvxZX8Ny6jaVv/Oqobj+pfYoDORP2mt4X8EMeISeuY3ysZPoArxSFIjNdomBQAAAD1GBrRLwm1oU5DWJ8e3ZV1toIcKw==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -1592,7 +1592,7 @@
         <ConnectionProviderMappings />
         <ConnectionSecurityMappings />
         <DatabaseStorageLocations />
-        <TargetServerVersion>SQLServer2019</TargetServerVersion>
+        <TargetServerVersion>SQLServer2016</TargetServerVersion>
         <AzureMode>false</AzureMode>
         <LinkedAzureTenantId />
         <LinkedAzureAccountId />
